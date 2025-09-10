@@ -31,3 +31,9 @@ docker-compose up -d
 ```bash
 bun run dev
 ```
+
+5. Start docker
+   Install tool composer for the docker
+   ```bash
+   docker compose up -d
+   ```
