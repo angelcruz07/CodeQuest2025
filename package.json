@@ -13,6 +13,7 @@
     "@prisma/client": "^6.15.0",
     "@tailwindcss/vite": "^4.1.13",
     "astro": "^5.13.7",
+    "better-auth": "^1.3.9",
     "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
