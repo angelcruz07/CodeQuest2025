@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --russian-violet: #1e0c3fff;
-  --rebecca-purple: #59368fff;
-  --periwinkle: #e8d2ffff;
-  --dark-purple: #130c25ff;
+  --color-russian-violet: #1e0c3fff;
+  --color-rebecca-purple: #59368fff;
+  --color-periwinkle: #e8d2ffff;
+  --color-dark-purple: #130c25ff;
 }
 
