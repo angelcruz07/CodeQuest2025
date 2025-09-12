@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -20,24 +19,26 @@ enum Role {
   USER //Solo puede leer los posts
 }
 
-model Author {
-  id Int @id @default(autoincrement())
-  name String
-  email String @unique
-  password String
-  role Role @default(AUTHOR)
-  bio String?
-  avatarUrl String?
-  deletedAt DateTime?
-  posts Post[]
-  comments Comment[]
-}
+// model Author {
+//   id Int @id @default(autoincrement())
+//   name String
+//   email String @unique
+//   password String
+//   role Role @default(AUTHOR)
+//   bio String?
+//   avatarUrl String?
+//   deletedAt DateTime?
+//   posts Post[]
+//   comments Comment[]
+// }
 
 model Category { 
   id Int @id @default(autoincrement())
   name String @unique
   deletedAt DateTime?
   posts Post[] @relation("PostCategories")
+
+  @@map("category")
 }
 
 model Comment {
@@ -49,10 +50,12 @@ model Comment {
   postId Int
   post Post @relation(fields: [postId], references: [id])
   authorId Int
-  author Author @relation(fields: [authorId], references: [id])
+  //author Author @relation(fields: [authorId], references: [id])
   parentId Int?
   parent Comment? @relation("CommentReplies", fields: [parentId], references: [id])
   replies Comment[] @relation("CommentReplies")
+
+  @@map("comment")
 }
 
 model Post {
@@ -67,8 +70,9 @@ model Post {
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
   authorId Int
-  author Author @relation(fields: [authorId], references: [id])
+  //author Author @relation(fields: [authorId], references: [id])
   categories Category[] @relation("PostCategories")
   comments Comment[]
+  @@map("post")
   @@index([slug])
 }
