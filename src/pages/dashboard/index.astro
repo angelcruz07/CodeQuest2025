@@ -1,0 +1,10 @@
+---
+import DashboardLayout from "@layouts/DashboardLayout.astro";
+const { user } = Astro.locals;
+
+---
+
+<DashboardLayout title="Dashboard">
+  <h1 class="text-3xl font-bold underline">Dashboard</h1>
+   <span>{JSON.stringify(user)}</span>
+</DashboardLayout>

@@ -1,0 +1,34 @@
+---
+import "@/styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const path = Astro.url.pathname;
+const author = "angelcruzsanchez126@gmail.com";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="follow, index" />
+    <meta name="author" content={author} />
+
+    <title>{title}</title>
+  </head>
+  <body class="scroll-smooth">
+    <!-- Todo: Agregar header -->
+
+    <main class="mb-20">
+      <slot />
+    </main>
+
+    <!-- Todo: Agregar footer -->
+  </body>
+</html>
