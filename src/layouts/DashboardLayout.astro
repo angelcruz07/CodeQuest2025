@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css'
+import Sidebar from '@components/dashboard/ui/Sidebar.astro'
 
 interface Props {
   title: string
@@ -25,7 +26,8 @@ const author = 'angelcruzsanchez126@gmail.com'
   <body class='scroll-smooth bg-dark-purple'>
     <!-- Todo: Agregar header -->
 
-    <main class='flex'>
+    <main class='flex bg-gray-200'>
+      <Sidebar />
       <slot />
     </main>
 
