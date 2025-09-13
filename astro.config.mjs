@@ -17,12 +17,14 @@ export default defineConfig({
       {
         name: "Raleway",
         provider: fontProviders.google(),
+        weights: ["300", "400", "600", "800", "900"],
         cssVariable: "--font-raleway",
         fallbacks: ["sans-serif"],
       },
       {
         name: "Space Mono",
         provider: fontProviders.google(),
+        weights: ["300", "400", "600", "800", "900"],
         cssVariable: "--font-space-mono",
         fallbacks: ["monospace"],
       },
