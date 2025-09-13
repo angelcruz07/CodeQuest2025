@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import Link from "../link/Link.astro";
+
+const routes = [
+  { name: "Inicio", path: "/" },
+  { name: "Blog", path: "/blog" },
+];
+---
+
+<header class="bg-complementary border-0.5 flex border-b border-white p-5">
+  <nav class="container flex justify-between gap-x-5">
+    <Image
+      src="/logos/logo-b.png"
+      width={150}
+      height={30}
+      alt="Logo devtalles"
+    />
+    <div class="flex items-center gap-x-5">
+      {
+        routes.map((route) => {
+          return (
+            <Link href={route.path} colorScheme="accent">
+              {route.name.toUpperCase()}
+            </Link>
+          );
+        })
+      }
+    </div>
+  </nav>
+</header>
