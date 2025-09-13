@@ -24,8 +24,6 @@ export const onRequest = defineMiddleware(
     locals.isAuthed = isAuthed;
     locals.user = null;
 
-    console.log(user);
-
     if (user) {
       locals.user = {
         email: user.email!,
@@ -38,7 +36,7 @@ export const onRequest = defineMiddleware(
     }
 
     if (isAuthed && noAuthenticatedRoutes.includes(url.pathname)) {
-      return redirect("/dashboard");
+      return redirect("/");
     }
 
     return next();
