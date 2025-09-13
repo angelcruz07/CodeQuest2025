@@ -3,7 +3,7 @@ import { defineMiddleware } from "astro:middleware";
 
 const privateRoutes = ["/dashboard"];
 
-const noAuthenticatedRoutes = ["/sign-in"];
+const noAuthenticatedRoutes = ["/auth/sign-in"];
 
 /**
  * Astro middleware to handle route access based on authentication status.
@@ -24,8 +24,7 @@ export const onRequest = defineMiddleware(
     locals.isAuthed = isAuthed;
     locals.user = null;
 
-    console.log(user)
-
+    console.log(user);
 
     if (user) {
       locals.user = {
@@ -35,7 +34,7 @@ export const onRequest = defineMiddleware(
     }
 
     if (!isAuthed && privateRoutes.includes(url.pathname)) {
-      return redirect("/sign-in");
+      return redirect("/auth/sign-in");
     }
 
     if (isAuthed && noAuthenticatedRoutes.includes(url.pathname)) {
