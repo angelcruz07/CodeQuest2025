@@ -1,0 +1,97 @@
+---
+import DBSmile from '../../../icons/dashboard/db-smile.svg'
+import DOCSmile from '../../../icons/dashboard/doc-smile.svg'
+
+const { currentPath = '/' } = Astro.props
+
+const routes = [
+  {
+    href: '/dashboard',
+    label: 'Dashboard',
+    icon: DBSmile,
+  },
+  {
+    href: '/blog',
+    label: 'Blog',
+    icon: DOCSmile,
+  },
+]
+
+const isActive = (href: string) => currentPath === href
+---
+ 
+<aside
+  class='fixed bottom-0 left-0 right-0 z-50
+    w-full h-auto border-primary bg-primary
+    md:relative md:bottom-auto md:left-auto md:right-auto
+    md:w-24 md:h-screen md:border-t-0 md:border-r md:shadow-none
+    flex flex-col'
+>
+  <!-- Header - Solo visible en desktop -->
+  <div class='hidden md:block p-6 border-b border-neutral'>
+    <h1 class='text-xl font-bold text-white text-center'>DvT</h1>
+  </div>
+
+  <!-- Navegación -->
+  <nav class='flex-1 p-4'>
+    <ul
+      class='flex flex-row justify-center gap-4 md:flex-col md:gap-3 md:justify-start md:items-center'
+    >
+      {
+        routes.map(({ href, label, icon: Icon }) => (
+          <li>
+            <a
+              href={href}
+              class={`
+                group relative flex items-center justify-center
+                w-12 h-12 text-xs font-medium
+                rounded-xl transition-all duration-300 ease-out
+                backdrop-blur-sm border-2
+                hover:scale-[1.02] hover:shadow-lg hover:shadow-neutral/20
+                ${isActive(href) 
+                  ? 'bg-neutral/10 text-white border-neutral shadow-lg shadow-neutral/25' 
+                  : 'text-neutral/80 border-white/30 hover:bg-neutral/5 hover:border-neutral hover:text-neutral'
+                }
+              `}
+              aria-current={isActive(href) ? 'page' : undefined}
+              title={label}
+            >
+              {/* Glow effect para elemento activo */}
+              {isActive(href) && (
+                <div class='absolute inset-0 bg-neutral/10 opacity-50 rounded-xl blur-md' />
+              )}
+
+              {/* Indicador activo - Mobile (bottom border modernizado) */}
+              {isActive(href) && (
+                <div class='absolute bottom-1 left-1/2 h-1 w-6 -translate-x-1/2 bg-neutral rounded-full md:hidden' />
+              )}
+
+              {/* Indicador activo - Desktop (left border modernizado) */}
+              {isActive(href) && (
+                <div class='absolute left-1 top-1/2 h-6 w-1 -translate-y-1/2 bg-neutral rounded-full hidden md:block' />
+              )}
+
+              <!-- Icono -->
+              <Icon class="relative z-10 h-8 w-8 text-current flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <!-- Perfil de usuario - Solo visible en desktop -->
+  <div
+    class='hidden md:block p-4 border-t border-primary bg-primary'
+  >
+    <div class='flex items-center justify-center'>
+      <div
+        class='h-12 w-12 rounded-full bg-gradient-to-br from-secondary to-neutral
+        flex items-center justify-center text-dark-purple font-bold text-lg
+        shadow-lg shadow-primary hover:scale-110 transition-transform duration-300 cursor-pointer'
+      >
+        U
+      </div>
+    </div>
+  </div>
+</aside>

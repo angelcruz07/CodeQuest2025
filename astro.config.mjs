@@ -15,14 +15,16 @@ export default defineConfig({
   experimental: {
     fonts: [
       {
-        name: "Raleyway",
+        name: "Raleway",
         provider: fontProviders.google(),
         cssVariable: "--font-raleway",
+        fallbacks: ["sans-serif"],
       },
       {
         name: "Space Mono",
         provider: fontProviders.google(),
         cssVariable: "--font-space-mono",
+        fallbacks: ["monospace"],
       },
     ],
   },

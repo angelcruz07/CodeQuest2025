@@ -1,0 +1,36 @@
+---
+import '@/styles/global.css'
+import Sidebar from '@components/dashboard/ui/Sidebar.astro'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+const path = Astro.url.pathname
+const author = 'angelcruzsanchez126@gmail.com'
+---
+
+<!doctype html>
+<html lang='es'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='description' content={description} />
+    <meta name='robots' content='follow, index' />
+    <meta name='author' content={author} />
+
+    <title>{title}</title>
+  </head>
+  <body class='scroll-smooth bg-dark-purple'>
+    <!-- Todo: Agregar header -->
+
+    <main class='flex bg-gray-200'>
+      <Sidebar />
+      <slot />
+    </main>
+
+    <!-- Todo: Agregar footer -->
+  </body>
+</html>
