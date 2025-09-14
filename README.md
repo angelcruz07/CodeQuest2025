@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/images/codequest.jpg" width="120" alt="DevTalles" />
+  <img src="./public/logos/devi-normal-border.png" width="120" alt="DevTalles" />
 
   <h1>Code Quest 25</h1>
 

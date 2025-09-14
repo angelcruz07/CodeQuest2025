@@ -1,0 +1,102 @@
+---
+import { Image } from "astro:assets";
+import Link from "../link/Link.astro";
+import X from "@icons/x.svg";
+import Menu from "@icons/menu.svg";
+
+const routes = [
+  { name: "Inicio", path: "/" },
+  { name: "Blog", path: "/blog" },
+  { name: "Iniciar Sesión", path: "/auth/sign-in" },
+];
+---
+
+<header
+  class="bg-complementary border-0.5 fixed top-0 z-50 flex h-20 w-full border-b border-b-white shadow-md duration-300"
+  id="main-header"
+>
+  <nav class="container flex items-center justify-between">
+    <a aria-label="Volver al inicio" href="/" class="">
+      <Image
+        src="/logos/logo-b.png"
+        width={150}
+        height={30}
+        alt="Logo devtalles"
+        loading="eager"
+      />
+    </a>
+
+    <div class="flex hidden items-center space-x-8 md:block">
+      {
+        routes.map((route) => {
+          return (
+            <Link href={route.path} colorScheme="accent">
+              {route.name.toUpperCase()}
+            </Link>
+          );
+        })
+      }
+    </div>
+
+    <div>
+      <button
+        id="open-menu-button"
+        name="Abrir menu"
+        class="cursor-pointer text-white md:hidden"
+      >
+        <Menu width={30} height={30} />
+      </button>
+
+      <button
+        id="close-menu-button"
+        class="cursor-pointer text-white md:hidden"
+        type="button"
+      >
+        <X width={30} height={30} />
+      </button>
+    </div>
+  </nav>
+
+  <dialog
+    id="mobile-menu"
+    role="dialog"
+    aria-modal="true"
+    class="bg-complementary top-20 z-50 size-full h-96 max-w-full translate-x-0 text-white transition-discrete duration-300 lg:hidden starting:-translate-y-full [&:not([open])]:-translate-x-full"
+  >
+    <div class="flex flex-col items-center justify-between gap-y-8 px-5">
+      <div class="mb-5 flex flex-col items-center">
+        {
+          routes.map((navLink) => {
+            return (
+              <Link href={navLink.path} colorScheme="accent">
+                {navLink.name}
+              </Link>
+            );
+          })
+        }
+      </div>
+    </div>
+  </dialog>
+</header>
+
+<script>
+  import { $ } from "@lib/dom-selector";
+  const mobileMenu = $("#mobile-menu") as HTMLDialogElement;
+  const openMenuButton = $("#open-menu-button");
+  const closeMenuButton = $("#close-menu-button");
+
+  const toggleMenu = () => {
+    if (mobileMenu.open) {
+      mobileMenu.close();
+      openMenuButton?.classList.remove("hidden");
+      closeMenuButton?.classList.add("hidden");
+    } else {
+      mobileMenu.showModal();
+      openMenuButton?.classList.add("hidden");
+      closeMenuButton?.classList.remove("hidden");
+    }
+  };
+
+  openMenuButton?.addEventListener("click", toggleMenu);
+  closeMenuButton?.addEventListener("click", toggleMenu);
+</script>

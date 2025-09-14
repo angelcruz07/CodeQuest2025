@@ -1,5 +1,7 @@
 ---
 import Head from "@components/seo/Head.astro";
+import Navbar from "@components/shared/Navbar.astro";
+import Footer from "@components/shared/Footer.astro";
 import "@styles/global.css";
 
 interface Props {
@@ -13,11 +15,13 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="es">
   <Head title={title} description={description} />
-  <body class="scroll-smooth bg-primary">
-    <!-- Todo: Agregar header -->
-    <main class="mb-20">
+  <body class="bg-primary scroll-smooth">
+    <Navbar />
+
+    <main class="container mb-20">
       <slot />
     </main>
-    <!-- Todo: Agregar footer -->
+
+    <Footer />
   </body>
 </html>
