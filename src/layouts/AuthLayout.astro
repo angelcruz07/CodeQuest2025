@@ -1,5 +1,6 @@
 ---
-import "@/styles/global.css";
+import Head from "@components/seo/Head.astro";
+import "@styles/global.css";
 
 interface Props {
   title: string;
@@ -7,28 +8,16 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const path = Astro.url.pathname;
-const author = "angelcruzsanchez126@gmail.com";
 ---
 
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description} />
-    <meta name="robots" content="follow, index" />
-    <meta name="author" content={author} />
-
-    <title>{title}</title>
-  </head>
-  <body class="scroll-smooth">
+  <Head title={title} description={description} />
+  <body class="bg-primary scroll-smooth">
     <!-- Todo: Agregar header -->
-
-    <main class="mb-20">
+    <main class="flex min-h-screen items-center justify-center">
       <slot />
     </main>
-
     <!-- Todo: Agregar footer -->
   </body>
 </html>
