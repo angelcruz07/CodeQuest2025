@@ -14,14 +14,11 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="es">
   <Head title={title} description={description} />
-
-  <body class="scroll-smooth">
-    <!-- Todo: Agregar header -->
-    <main class="flex bg-gray-200">
-      <Sidebar />
+  <body class="flex scroll-smooth">
+    <Sidebar />
+    <main class="flex bg-gray-100">
       <slot />
     </main>
-
     <!-- Todo: Agregar footer -->
   </body>
 </html>
