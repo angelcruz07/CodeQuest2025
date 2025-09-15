@@ -25,8 +25,6 @@ enum Role {
 //   email String @unique
 //   password String
 //   role Role @default(AUTHOR)
-//   bio String?
-//   avatarUrl String?
 //   deletedAt DateTime?
 //   posts Post[]
 //   comments Comment[]
@@ -63,10 +61,9 @@ model Post {
   title String
   content String
   likes Int @default(0)
-  images String[]
+  image String[]
   tags String[]
   slug String @unique
-  status String @default("PUBLISHED") 
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
   authorId Int
