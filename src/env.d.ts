@@ -2,10 +2,10 @@
 /// <reference types="astro/client" />
 
 interface User {
-  name: string
-  email: string
+  name: string;
+  email: string;
+  role: string;
 }
-
 
 declare namespace App {
   interface Locals {

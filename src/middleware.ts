@@ -1,7 +1,12 @@
 import { auth } from "@lib/auth/auth";
 import { defineMiddleware } from "astro:middleware";
 
-const privateRoutes = ["/dashboard"];
+const privateRoutes = [
+  "/dashboard",
+  "/dashboard/post",
+  "/dashboard/users",
+  "/profile",
+];
 
 const noAuthenticatedRoutes = ["/auth/sign-in"];
 
@@ -28,6 +33,7 @@ export const onRequest = defineMiddleware(
       locals.user = {
         email: user.email!,
         name: user.name ?? "",
+        role: user.role!!,
       };
     }
 

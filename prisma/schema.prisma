@@ -13,10 +13,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role { 
-  ADMIN
-  AUTHOR //Crear los posts
-  USER //Solo puede leer los posts
+enum Role {
+  admin
+  author  //Crear los posts
+  user    //Solo puede leer los posts
 }
 
 // model Author {
@@ -66,7 +66,7 @@ model Post {
   images String[]
   tags String[]
   slug String @unique
-  status String @default("PUBLISHED") 
+  status String @default("PUBLISHED")
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
   authorId Int
@@ -85,6 +85,12 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
+
+  role       String?   @default("user")
+  banned     Boolean?
+  banReason  String?
+  banExpires DateTime?
+
   sessions      Session[]
   accounts      Account[]
 

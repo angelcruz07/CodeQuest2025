@@ -1,0 +1,36 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Heading from "@components/heading/Heading.astro";
+import Text from "@components/text/Text.astro";
+
+const { isAuthed, user } = Astro.locals;
+
+if (!isAuthed) {
+  Astro.redirect("/auth/sign-in");
+}
+---
+
+<Layout title="Perfil">
+  <section class="relative">
+    <Heading className="mt-20">Perfil</Heading>
+    <Text>{user?.name}</Text>
+
+    <Text>{user?.role}</Text>
+
+    <button id="btn-logout"> cerrar sesion </button>
+  </section>
+</Layout>
+
+<script>
+  import { $ } from "@lib/dom-selector";
+  import { signOut } from "@lib/auth/auth-client";
+
+  const logoutButton = $("#btn-logout");
+
+  if (logoutButton) {
+    logoutButton.onclick = () => {
+      signOut();
+      return window.location.replace("/");
+    };
+  }
+</script>
