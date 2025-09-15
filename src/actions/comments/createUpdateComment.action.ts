@@ -3,7 +3,7 @@ import { z } from "astro:schema";
 import prisma from "@lib/prisma";
 import { post } from "@actions/post";
 
-export const createUpdateComment = defineAction({ 
+export const createUpdateComment = defineAction({
     accept: 'form',
     input: z.object({
         id: z.string().optional(),
@@ -13,12 +13,12 @@ export const createUpdateComment = defineAction({
         parent: z.number().optional(),
         replies: z.array(z.string().min(3).max(250)).optional()
     }),
-    handler: async ({id, content, postId, authorId, parent, replies}) => { 
-        try { 
-            if (id) { 
-                const updatedComment =  await prisma.comment.update({ 
+    handler: async ({ id, content, postId, authorId, parent, replies }) => {
+        try {
+            if (id) {
+                const updatedComment = await prisma.comment.update({
                     where: { id: Number(id) },
-                    data: { 
+                    data: {
                         content,
                         post: { connect: { id: postId } },
                         author: { connect: { id: authorId } },
@@ -27,18 +27,18 @@ export const createUpdateComment = defineAction({
                     }
                 });
                 return updatedComment;
-            } else { 
-                const newPost = await prisma.comment.create({
-                    data: { 
-                        content: content.join(' '),
-                        post: { connect: { id: postId } },
-                        author: { connect: { id: authorId } },
-                        parent: parent ? { connect: { id: parent } } : undefined,
-                        replies: replies ? { set: replies.map(reply => ({ id: Number(reply) })) } : undefined
-                    }
-                });
-                return newPost;
             }
+            const newPost = await prisma.comment.create({
+                data: {
+                    content: content.join(' '),
+                    post: { connect: { id: postId } },
+                    author: { connect: { id: authorId } },
+                    parent: parent ? { connect: { id: parent } } : undefined,
+                    replies: replies ? { set: replies.map(reply => ({ id: Number(reply) })) } : undefined
+                }
+            });
+            return newPost;
+
         } catch (e) {
             if (id) {
                 throw new ActionError({
