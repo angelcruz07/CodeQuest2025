@@ -8,58 +8,58 @@ export const createUpdatePost = defineAction({
         id: z.string().optional(),
         title: z.string().min(3).max(50),
         content: z.string().min(10),
-        image: z.array(z.string().url()).optional(),
-        tags: z.array(z.string().min(3).max(20)),
+        image: z.array(z.string().url()),
+        tags: z.string().min(3).max(20),
         slug: z.string().min(5).max(30),
-        author: z.number(),
+        // author: z.number(),
         categories: z.array(z.string().min(3).max(50)),
     }),
-    handler: async ({ id, title, content, image, tags, slug, author, categories }) => {
+    handler: async ({ id, title, content, image, tags, slug, categories }) => {
         try {
+            console.log(id, title, content, image, tags, slug, categories);
+            const tagsArray = tags.split(',').map(tag => tag.trim().toLowerCase());
+            const categoriesArray = categories.map(category => category.trim().toLowerCase());
+
             if (id) {
                 const updatedPost = await prisma.post.update({
-                    where: { id: Number(id) },
+                    where: { id },
                     data: {
                         title,
                         content,
                         image,
-                        tags,
+                        tags: { set: tagsArray },
                         slug,
-                        author: { connect: { id: author } },
+                        // author: { connect: { id: author } },
                         categories: {
                             connect: categories.map(name => ({ name }))
                         }
                     }
                 });
                 return updatedPost;
-            }
+            } else { 
+
             const newPost = await prisma.post.create({
                 data: {
                     title,
                     content,
                     image,
-                    tags,
+                    tags: { set: tagsArray },
                     slug,
-                    author: { connect: { id: author } },
+                    // author: { connect: { id: author } },
                     categories: {
                         connect: categories.map(name => ({ name }))
                     }
                 }
             });
             return newPost;
-
-        } catch (e) {
-            if (id) {
-                throw new ActionError({
-                    code: "BAD_REQUEST",
-                    message: "Error to update the post" + (e instanceof Error ? e.message : String(e))
-                });
-            } else {
-                throw new ActionError({
-                    code: "BAD_REQUEST",
-                    message: "Error to create the post" + (e instanceof Error ? e.message : String(e))
-                });
             }
+        } catch (e) {
+            console.error("Error creating/updating post:", e);
+            throw new ActionError({
+                code: "BAD_REQUEST",
+                message: "Error to updating the post" + (e instanceof Error ? e.message : String(e))
+            });
         }
     }
+
 });
