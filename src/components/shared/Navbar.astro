@@ -1,10 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import Link from "../link/Link.astro";
+import Text from "../text/Text.astro";
 import X from "@icons/x.svg";
 import Menu from "@icons/menu.svg";
 import Button from "../button/Button.astro";
 import { ROUTES_NAV } from "@const";
+import AuthButtonNav from "@components/auth/AuthButtonNav.astro";
+
+const { user } = Astro.locals;
 ---
 
 <header
@@ -36,9 +40,7 @@ import { ROUTES_NAV } from "@const";
       </div>
     </div>
 
-    <Button className="hidden md:block">
-      <Link href="/auth/sign-in"> Iniciar Sesión </Link>
-    </Button>
+    <AuthButtonNav user={user} client:load />
 
     <button
       id="open-menu-button"

@@ -23,6 +23,7 @@ const { text, icon: Icon } = Astro.props;
 
   if (loginButton) {
     loginButton.onclick = () => {
+      console.log("Iniciando sesión con Discord...");
       signIn.social({
         provider: "discord",
       });
