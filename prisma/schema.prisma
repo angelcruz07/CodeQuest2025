@@ -33,7 +33,6 @@ enum Role {
 model Category { 
   id String @id @default(uuid())
   name String @unique
-  deletedAt DateTime?
   posts Post[] @relation("PostCategories")
 
   @@map("category")
