@@ -3,20 +3,16 @@ import { Image } from "astro:assets";
 import Link from "../link/Link.astro";
 import X from "@icons/x.svg";
 import Menu from "@icons/menu.svg";
-
-const routes = [
-  { name: "Inicio", path: "/" },
-  { name: "Blog", path: "/blog" },
-  { name: "Iniciar Sesión", path: "/auth/sign-in" },
-];
+import Button from "../button/Button.astro";
+import { ROUTES_NAV } from "@const";
 ---
 
 <header
-  class="bg-complementary border-0.5 fixed top-0 z-50 flex h-20 w-full border-b border-b-white shadow-md duration-300"
+  class="bg-complementary fixed top-0 z-50 flex h-20 w-full shadow-md duration-300"
   id="main-header"
 >
   <nav class="container flex items-center justify-between">
-    <a aria-label="Volver al inicio" href="/" class="">
+    <Link href="/">
       <Image
         src="/logos/logo-b.png"
         width={150}
@@ -24,37 +20,41 @@ const routes = [
         alt="Logo devtalles"
         loading="eager"
       />
-    </a>
+    </Link>
 
-    <div class="flex hidden items-center space-x-8 md:block">
-      {
-        routes.map((route) => {
-          return (
-            <Link href={route.path} colorScheme="accent">
-              {route.name.toUpperCase()}
-            </Link>
-          );
-        })
-      }
+    <div class="hidden md:block">
+      <div class="flex items-center space-x-8">
+        {
+          ROUTES_NAV.map((route) => {
+            return (
+              <Link href={route.path} colorScheme="accent">
+                {route.name.toUpperCase()}
+              </Link>
+            );
+          })
+        }
+      </div>
     </div>
 
-    <div>
-      <button
-        id="open-menu-button"
-        name="Abrir menu"
-        class="cursor-pointer text-white md:hidden"
-      >
-        <Menu width={30} height={30} />
-      </button>
+    <Button className="hidden md:block">
+      <Link href="/auth/sign-in"> Iniciar Sesión </Link>
+    </Button>
 
-      <button
-        id="close-menu-button"
-        class="cursor-pointer text-white md:hidden"
-        type="button"
-      >
-        <X width={30} height={30} />
-      </button>
-    </div>
+    <button
+      id="open-menu-button"
+      name="Abrir menu"
+      class="cursor-pointer text-white md:hidden"
+    >
+      <Menu width={30} height={30} />
+    </button>
+
+    <button
+      id="close-menu-button"
+      class="cursor-pointer text-white md:hidden"
+      type="button"
+    >
+      <X width={30} height={30} />
+    </button>
   </nav>
 
   <dialog
@@ -66,7 +66,7 @@ const routes = [
     <div class="flex flex-col items-center justify-between gap-y-8 px-5">
       <div class="mb-5 flex flex-col items-center">
         {
-          routes.map((navLink) => {
+          ROUTES_NAV.map((navLink) => {
             return (
               <Link href={navLink.path} colorScheme="accent">
                 {navLink.name}
