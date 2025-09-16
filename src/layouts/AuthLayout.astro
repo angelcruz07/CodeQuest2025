@@ -1,7 +1,6 @@
 ---
-import "@styles/global.css";
-import Sidebar from "@components/dashboard/ui/Sidebar.astro";
 import Head from "@components/seo/Head.astro";
+import "@styles/global.css";
 
 interface Props {
   title: string;
@@ -14,9 +13,9 @@ const { title, description } = Astro.props;
 <!doctype html>
 <html lang="es">
   <Head title={title} description={description} />
-  <body class="flex scroll-smooth">
-    <Sidebar />
-    <main class="flex w-full bg-gray-100">
+  <body class="bg-primary scroll-smooth">
+    <!-- Todo: Agregar header -->
+    <main class="flex min-h-screen items-center justify-center">
       <slot />
     </main>
     <!-- Todo: Agregar footer -->

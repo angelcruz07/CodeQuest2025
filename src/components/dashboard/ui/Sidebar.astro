@@ -1,6 +1,7 @@
 ---
-import Docs from '@icons/dashboard/doc-smile.svg'
-import Users from '@icons/dashboard/db-smile.svg'
+import Docs from '@icons/dashboard/doc-smile.svg';
+import Users from '@icons/dashboard/db-smile.svg';
+import Text from '@components/text/Text.astro';
 
 const { currentPath = '/' } = Astro.props
 
@@ -97,6 +98,14 @@ const isActive = (href: string) => currentPath === href
     </ul>
   </nav>
 
+  <div>
+    <button id="btn-logout">
+      <Text>
+      Cerrar sesión
+      </Text>
+    </button>
+  </div>
+
   <!-- Footer opcional con información adicional -->
   <div class='p-4 border-t border-primary/50'>
     <div class='text-xs text-neutral/50 text-center'>
@@ -104,3 +113,16 @@ const isActive = (href: string) => currentPath === href
     </div>
   </div>
 </aside>
+
+
+<script>
+import { $ } from '@lib/dom-selector';
+import { signOut } from '@lib/auth/auth-client';
+
+const btnLogout = $('#btn-logout');
+
+btnLogout?.addEventListener('click', async () => {
+  await signOut();
+  window.location.href = '/';
+});
+</script>
