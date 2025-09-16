@@ -12,7 +12,7 @@ const {
   component: Tag = "h1",
   className,
   fontSize,
-  color,
+  color = "accent",
   ...props
 } = Astro.props as Props;
 
@@ -23,14 +23,14 @@ const getHeadingClasses = (
   // Map custom sizes to Tailwind's utility classes
   const sizeMap = {
     large: "text-4xl sm:text-5xl lg:text-6xl font-black",
-    medium: "text-2xl sm:text-3xl lg:text-4xl font-extrabold",
-    small: "text-xl sm:text-2xl lg:text-3xl font-bold",
+    medium: "text-2xl sm:text-3xl lg:text-4xl font-bold",
+    small: "text-xs sm:text-xl lg:text-2xl font-semibold",
   };
 
   const colorMap = {
     primary: "text-primary",
     secondary: "text-primary",
-    accent: "texto-white",
+    accent: "text-white",
   };
 
   return clsx(

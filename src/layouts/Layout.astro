@@ -2,6 +2,7 @@
 import Head from "@components/seo/Head.astro";
 import Navbar from "@components/shared/Navbar.astro";
 import Footer from "@components/shared/Footer.astro";
+
 import "@styles/global.css";
 
 interface Props {
@@ -18,7 +19,7 @@ const { title, description } = Astro.props;
   <body class="bg-primary scroll-smooth">
     <Navbar />
 
-    <main class="container mb-20">
+    <main class="container my-20">
       <slot />
     </main>
 

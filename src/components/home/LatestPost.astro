@@ -1,0 +1,35 @@
+---
+import Heading from "@components/heading/Heading.astro";
+import PostCard from "@components/post/postcard/PostCard.astro";
+import Button from "@components/button/Button.astro";
+import Text from "@components/text/Text.astro";
+---
+
+<section class="flex flex-col gap-y-10 text-center">
+  <div>
+    <Heading component="h2">Últimos Posts</Heading>
+    <Text>Explora los últimos posts de nuestro blog</Text>
+  </div>
+
+  <div class="mt-20 flex gap-10">
+    <PostCard
+      imagePost="/images/code.jpg"
+      title="Post Title"
+      description="Post Description"
+      date="Post Date"
+    />
+    <PostCard
+      imagePost="/images/code.jpg"
+      title="Post Title"
+      description="Post Description"
+      date="Post Date"
+    />
+    <PostCard
+      imagePost="/images/code.jpg"
+      title="Post Title"
+      description="Post Description"
+      date="Post Date"
+    />
+  </div>
+  <Button variant="primary"> Ver más </Button>
+</section>
