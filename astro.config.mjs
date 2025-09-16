@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
@@ -11,5 +11,23 @@ export default defineConfig({
   },
 
   adapter: vercel(),
+  output: "server",
+  experimental: {
+    fonts: [
+      {
+        name: "Raleway",
+        provider: fontProviders.google(),
+        weights: ["300", "400", "600", "800", "900"],
+        cssVariable: "--font-raleway",
+        fallbacks: ["sans-serif"],
+      },
+      {
+        name: "Space Mono",
+        provider: fontProviders.google(),
+        weights: ["300", "400", "600", "800", "900"],
+        cssVariable: "--font-space-mono",
+        fallbacks: ["monospace"],
+      },
+    ],
+  },
 });
-

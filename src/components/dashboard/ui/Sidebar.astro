@@ -1,0 +1,128 @@
+---
+import Docs from '@icons/dashboard/doc-smile.svg';
+import Users from '@icons/dashboard/db-smile.svg';
+import Text from '@components/text/Text.astro';
+
+const { currentPath = '/' } = Astro.props
+
+const adminRoutes = [
+  {
+    href: '/dashboard/posts',
+    label: 'Posts',
+    icon: Docs,
+  },
+  {
+    href: '/dashboard/posts',
+    label: 'Posts',
+    icon: Docs,
+  },
+
+  {
+    href: '/dashboard/users',
+    label: 'Users',
+    icon: Users,
+  },
+]
+
+const isActive = (href: string) => currentPath === href
+---
+
+<aside
+  class='left-24 z-40
+  md:block md:w-56 h-screen
+  bg-complementary/95 backdrop-blur-sm border-r border-primary
+  shadow-lg shadow-primary/10
+  flex flex-col'
+>
+  <!-- Header del sub-panel -->
+  <div class='p-4 border-b border-primary/50'>
+    <h2 class='text-lg font-semibold text-neutral'>Dashboard</h2>
+    <p class='text-xs text-neutral/60 mt-1'>Panel Administrativo</p>
+  </div>
+
+  <!-- Navegación de sub-rutas -->
+  <nav class='flex-1 p-4 overflow-y-auto'>
+    <ul class='space-y-2'>
+      {
+        adminRoutes.map(({ href, label, icon: Icon }) => (
+          <li>
+            <a
+              href={href}
+              class={`
+                group relative flex items-center
+                w-full px-3 py-3 text-sm font-medium
+                rounded-lg transition-all duration-300 ease-out
+                border border-transparent
+                hover:scale-[1.01] hover:shadow-md hover:shadow-neutral/10
+                ${isActive(href) 
+                  ? 'bg-neutral/15 text-white border-neutral/40 shadow-md shadow-neutral/20' 
+                  : 'text-neutral/80 border-white/10 hover:bg-neutral/8 hover:border-neutral/30 hover:text-neutral'
+                }
+              `}
+              aria-current={isActive(href) ? 'page' : undefined}
+              title={label}
+            >
+
+              {/* Glow effect para elemento activo */}
+              {isActive(href) && (
+                <div class='absolute inset-0 bg-neutral/5 opacity-50 rounded-lg blur-sm' />
+              )}
+
+              {/* Indicador activo - Left border */}
+              {isActive(href) && (
+                <div class='absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 bg-neutral rounded-r-full' />
+              )}
+
+              <!-- Icono -->
+              <Icon class="relative z-10 h-5 w-5 text-current mr-3 flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
+
+              <!-- Texto -->
+              <span class='relative z-10 font-medium'>
+                {label}
+              </span>
+
+              <!-- Flecha indicativa (opcional) -->
+              <svg 
+                class={`relative z-10 h-4 w-4 ml-auto transition-all duration-300 ${
+                  isActive(href) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-1 group-hover:opacity-50 group-hover:translate-x-0'
+                }`}
+                fill='currentColor' 
+                viewBox='0 0 20 20'
+              >
+                <path fill-rule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clip-rule='evenodd' />
+              </svg>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <div>
+    <button id="btn-logout">
+      <Text>
+      Cerrar sesión
+      </Text>
+    </button>
+  </div>
+
+  <!-- Footer opcional con información adicional -->
+  <div class='p-4 border-t border-primary/50'>
+    <div class='text-xs text-neutral/50 text-center'>
+      <p>Admin Panel v1.0</p>
+    </div>
+  </div>
+</aside>
+
+
+<script>
+import { $ } from '@lib/dom-selector';
+import { signOut } from '@lib/auth/auth-client';
+
+const btnLogout = $('#btn-logout');
+
+btnLogout?.addEventListener('click', async () => {
+  await signOut();
+  window.location.href = '/';
+});
+</script>

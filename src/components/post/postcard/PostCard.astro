@@ -1,0 +1,21 @@
+---
+import { Image } from "astro:assets";
+import Heading from "@components/heading/Heading.astro";
+import Text from "@components/text/Text.astro";
+import Calendar from "@icons/calendar.svg";
+
+const { imagePost, title, description, date } = Astro.props;
+---
+
+<div class="bg-accent flex max-w-96 flex-col rounded-md">
+  <Image
+    src={imagePost}
+    alt={title}
+    width={350}
+    height={200}
+    class="w-full rounded-t-md"
+  />
+  <Heading component="h3" fontSize="small">{title}</Heading>
+  <Text className="flex items-center"><Calendar />{date}</Text>
+  <Text>{description}</Text>
+</div>

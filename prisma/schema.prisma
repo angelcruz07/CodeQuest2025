@@ -6,10 +6,139 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  author  //Crear los posts
+  user    //Solo puede leer los posts
+}
+
+// model Author {
+//   id Int @id @default(autoincrement())
+//   name String
+//   email String @unique
+//   password String
+//   role Role @default(AUTHOR)
+//   bio String?
+//   avatarUrl String?
+//   deletedAt DateTime?
+//   posts Post[]
+//   comments Comment[]
+// }
+
+model Category { 
+  id Int @id @default(autoincrement())
+  name String @unique
+  deletedAt DateTime?
+  posts Post[] @relation("PostCategories")
+
+  @@map("category")
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  postId Int
+  post Post @relation(fields: [postId], references: [id])
+  authorId Int
+  //author Author @relation(fields: [authorId], references: [id])
+  parentId Int?
+  parent Comment? @relation("CommentReplies", fields: [parentId], references: [id])
+  replies Comment[] @relation("CommentReplies")
+
+  @@map("comment")
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  likes Int @default(0)
+  images String[]
+  tags String[]
+  slug String @unique
+  status String @default("PUBLISHED")
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  authorId Int
+  //author Author @relation(fields: [authorId], references: [id])
+  categories Category[] @relation("PostCategories")
+  comments Comment[]
+  @@map("post")
+  @@index([slug])
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+
+  role       String?   @default("user")
+  banned     Boolean?
+  banReason  String?
+  banExpires DateTime?
+
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
 }

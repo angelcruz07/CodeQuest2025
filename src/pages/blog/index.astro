@@ -1,0 +1,17 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Heading from "@components/heading/Heading.astro";
+import Text from "@components/text/Text.astro";
+import GridPost from "@components/post/gridpost/GridPost.astro";
+---
+
+<Layout title="Blog">
+  <section>
+    <div>
+      <Heading component="h1">Blog</Heading>
+      <Text>Bienvenido al blog de Devtalles community</Text>
+    </div>
+
+    <GridPost />
+  </section>
+</Layout>
