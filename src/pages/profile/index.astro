@@ -2,22 +2,48 @@
 import Layout from "@layouts/Layout.astro";
 import Heading from "@components/heading/Heading.astro";
 import Text from "@components/text/Text.astro";
+import Link from "@components/link/Link.astro";
+import { Image } from "astro:assets";
 
 const { isAuthed, user } = Astro.locals;
 
-if (!isAuthed) {
-  Astro.redirect("/auth/sign-in");
-}
+if (!isAuthed) return Astro.redirect("/auth/sign-in");
 ---
 
 <Layout title="Perfil">
-  <section class="relative">
-    <Heading className="mt-20">Perfil</Heading>
-    <Text>{user?.name}</Text>
+  <section class="md:h-screen">
+    <div class="mt-20 mb-20">
+      <Heading className="">Mi cuenta</Heading>
+    </div>
 
-    <Text>{user?.role}</Text>
+    <article class="mt-8 flex gap-4">
+      <div class="bg-secondary flex h-96 w-96 flex-col rounded-md p-5">
+        <div class="flex gap-x-5">
+          <Image
+            src={user!.image ?? "/avatars/avatar-default.jpg"}
+            alt={user!.name}
+            width={40}
+            height={40}
+            class="rounded-full"
+          />
 
-    <button id="btn-logout"> cerrar sesion </button>
+          <div class="flex flex-col">
+            <Text>{user?.name}</Text>
+            <Text>{user?.email}</Text>
+          </div>
+        </div>
+
+        <div class="mt-5">
+          {user!.role === "admin" && <Link href="/dashboard">Dashboard</Link>}
+        </div>
+
+        <button id="btn-logout"> <Text> Cerrar sesion </Text> </button>
+      </div>
+
+      <div class="bg-complementary w-full rounded-md">
+        <Text>Hola Mundo</Text>
+      </div>
+    </article>
   </section>
 </Layout>
 
@@ -29,8 +55,13 @@ if (!isAuthed) {
 
   if (logoutButton) {
     logoutButton.onclick = () => {
-      signOut();
-      return window.location.replace("/");
+      signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            window.location.href = "/";
+          },
+        },
+      });
     };
   }
 </script>
