@@ -1,5 +1,3 @@
-import prisma  from '../src/lib/prisma.ts';
-
 interface Category { 
     name: string;
 }
@@ -32,19 +30,4 @@ export const categories: Category[] = [
     {name: 'Embedded Systems'},
     {name: 'Robotics'},
     {name: 'Quantum Computing'},
-]
-
-async function main() { 
-    await prisma.category.deleteMany();
-
-    await prisma.category.createMany({ 
-        data: categories
-    });
-
-    console.log("Seed executed successfully");
-}
-
-main().catch((e) => { 
-    console.error(e);
-    process.exit(1);
-});
+];

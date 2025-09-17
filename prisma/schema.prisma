@@ -19,16 +19,16 @@ enum Role {
   user    //Solo puede leer los posts
 }
 
-// model Author {
-//   id Int @id @default(autoincrement())
-//   name String
-//   email String @unique
-//   password String
-//   role Role @default(AUTHOR)
-//   deletedAt DateTime?
-//   posts Post[]
-//   comments Comment[]
-// }
+model Author {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  role Role @default(author)
+  deletedAt DateTime?
+  posts Post[]
+  comments Comment[]
+}
 
 model Category { 
   id String @id @default(uuid())
@@ -47,7 +47,7 @@ model Comment {
   postId String
   post Post @relation(fields: [postId], references: [id])
   authorId String
-  //author Author @relation(fields: [authorId], references: [id])
+  author Author @relation(fields: [authorId], references: [id])
   parentId String?
   parent Comment? @relation("CommentReplies", fields: [parentId], references: [id])
   replies Comment[] @relation("CommentReplies")
@@ -58,17 +58,16 @@ model Comment {
 model Post {
   id String @id @default(uuid())
   title String
-  // description String
+  description String
   content String
   likes Int @default(0)
   image String[]
   tags String[]
   slug String @unique
-  status String @default("PUBLISHED")
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
-  // authorId Int
-  //author Author @relation(fields: [authorId], references: [id])
+  authorId String
+  author Author @relation(fields: [authorId], references: [id])
   categories Category[] @relation("PostCategories")
   comments Comment[]
   @@map("post")

@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "seed": "ts-node ./seed/seed-categories.ts"
+    "seed": "ts-node ./seed/seed.ts"
   },
   "dependencies": {
     "@astrojs/react": "^4.3.1",
