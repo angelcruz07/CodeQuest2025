@@ -19,39 +19,36 @@ enum Role {
   user    //Solo puede leer los posts
 }
 
-// model Author {
-//   id Int @id @default(autoincrement())
-//   name String
-//   email String @unique
-//   password String
-//   role Role @default(AUTHOR)
-//   bio String?
-//   avatarUrl String?
-//   deletedAt DateTime?
-//   posts Post[]
-//   comments Comment[]
-// }
+model Author {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+  role Role @default(author)
+  deletedAt DateTime?
+  posts Post[]
+  comments Comment[]
+}
 
 model Category { 
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   name String @unique
-  deletedAt DateTime?
   posts Post[] @relation("PostCategories")
 
   @@map("category")
 }
 
 model Comment {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   content String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
-  postId Int
+  postId String
   post Post @relation(fields: [postId], references: [id])
-  authorId Int
-  //author Author @relation(fields: [authorId], references: [id])
-  parentId Int?
+  authorId String
+  author Author @relation(fields: [authorId], references: [id])
+  parentId String?
   parent Comment? @relation("CommentReplies", fields: [parentId], references: [id])
   replies Comment[] @relation("CommentReplies")
 
@@ -59,18 +56,18 @@ model Comment {
 }
 
 model Post {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   title String
+  description String
   content String
   likes Int @default(0)
-  images String[]
+  image String[]
   tags String[]
   slug String @unique
-  status String @default("PUBLISHED")
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
-  authorId Int
-  //author Author @relation(fields: [authorId], references: [id])
+  authorId String
+  author Author @relation(fields: [authorId], references: [id])
   categories Category[] @relation("PostCategories")
   comments Comment[]
   @@map("post")
