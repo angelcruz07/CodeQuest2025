@@ -19,20 +19,10 @@ enum Role {
   user    //Solo puede leer los posts
 }
 
-model Author {
-  id String @id @default(uuid())
-  name String
-  email String @unique
-  password String
-  role Role @default(author)
-  deletedAt DateTime?
-  posts Post[]
-  comments Comment[]
-}
-
 model Category { 
   id String @id @default(uuid())
   name String @unique
+
   posts Post[] @relation("PostCategories")
 
   @@map("category")
@@ -44,13 +34,14 @@ model Comment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
-  postId String
-  post Post @relation(fields: [postId], references: [id])
-  authorId String
-  author Author @relation(fields: [authorId], references: [id])
   parentId String?
   parent Comment? @relation("CommentReplies", fields: [parentId], references: [id])
   replies Comment[] @relation("CommentReplies")
+  postId String
+  userId String
+
+  post Post @relation(fields: [postId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   @@map("comment")
 }
@@ -66,8 +57,8 @@ model Post {
   slug String @unique
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
-  authorId String
-  author Author @relation(fields: [authorId], references: [id])
+  userId String
+  author User @relation("UserPosts", fields: [userId], references: [id])
   categories Category[] @relation("PostCategories")
   comments Comment[]
   @@map("post")
@@ -90,6 +81,8 @@ model User {
 
   sessions      Session[]
   accounts      Account[]
+  posts         Post[]    @relation("UserPosts")
+  comments      Comment[] 
 
   @@unique([email])
   @@map("user")
