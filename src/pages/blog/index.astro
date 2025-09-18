@@ -3,15 +3,23 @@ import Layout from "@layouts/Layout.astro";
 import Heading from "@components/heading/Heading.astro";
 import Text from "@components/text/Text.astro";
 import GridPost from "@components/post/gridpost/GridPost.astro";
+import Search from "@components/search/Search.astro";
+import Pagination from "@components/pagination/Pagination.astro";
 ---
 
 <Layout title="Blog">
-  <section>
-    <div>
-      <Heading component="h1">Blog</Heading>
+  <section class="py-20">
+    <div class="space-y-5 text-center">
+      <Heading component="h1" fontSize="large">Todos los post</Heading>
       <Text>Bienvenido al blog de Devtalles community</Text>
+      <hr class="border-accent mx-auto w-20 border-2" />
+    </div>
+
+    <div class="mt-10">
+      <Search />
     </div>
 
     <GridPost />
+    <Pagination totalPages={5} />
   </section>
 </Layout>

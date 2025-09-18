@@ -1,21 +1,53 @@
 ---
 import { Image } from "astro:assets";
-import Heading from "@components/heading/Heading.astro";
 import Text from "@components/text/Text.astro";
 import Calendar from "@icons/calendar.svg";
+import Tag from "@components/tags/Tag.astro";
+import Link from "@components/link/Link.astro";
 
-const { imagePost, title, description, date } = Astro.props;
+interface Props {
+  imagePost: string;
+  title: string;
+  description: string;
+  date: string;
+  tags: string[];
+  slug: string;
+}
+
+const { imagePost, title, description, date, tags, slug } = Astro.props;
 ---
 
-<div class="bg-accent flex max-w-96 flex-col rounded-md">
+<div
+  class="bg-accent/80 border-secondary flex max-w-96 flex-col rounded-md border"
+>
   <Image
     src={imagePost}
     alt={title}
     width={350}
     height={200}
-    class="w-full rounded-t-md"
+    class="h-48 w-96 rounded-t-md"
   />
-  <Heading component="h3" fontSize="small">{title}</Heading>
-  <Text className="flex items-center"><Calendar />{date}</Text>
-  <Text>{description}</Text>
+
+  <div class="h-72 p-5">
+    {
+      tags && (
+        <div class="mb-4 flex space-x-2">
+          {tags.map((tag) => (
+            <Tag {tag} />
+          ))}
+        </div>
+      )
+    }
+
+    <Link href={`/blog/${slug}`} className="text-2xl font-semibold text-white"
+      >{title.slice(0, 35) + "..."}</Link
+    >
+    <Text component="p" color="none" className="mt-5 text-sm text-white"
+      >{description}</Text
+    >
+    <Text className="mt-5 flex items-center text-gray-500" fontSize="small">
+      <Calendar color="#c27aff" />
+      {date}
+    </Text>
+  </div>
 </div>

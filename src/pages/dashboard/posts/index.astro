@@ -1,9 +1,12 @@
 ---
-import DashboardLayout from "@layouts/DashboardLayout.astro";
+import DashboardLayout from '@layouts/DashboardLayout.astro'
+// import Navigation from '../Navigation.astro'
+import PostForm  from '@components/dashboard/post/PostForm'
 ---
 
-<DashboardLayout title="Posts">
-  <div class="p-8">
-    <h1>Posts</h1>
+<DashboardLayout title='posts'>
+  <!-- <Navigation /> -->
+  <div class='p-8'>
+    <PostForm client:load/>
   </div>
 </DashboardLayout>
