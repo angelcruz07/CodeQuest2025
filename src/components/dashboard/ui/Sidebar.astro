@@ -1,128 +1,100 @@
 ---
-import Docs from '@icons/dashboard/doc-smile.svg';
-import Users from '@icons/dashboard/db-smile.svg';
-import Text from '@components/text/Text.astro';
+import PostIcon from '@icons/dashboard/post.svg';
+import LogOut from '@icons/dashboard/logout.svg'; 
+import Heading from '../../heading/Heading.astro';
 
-const { currentPath = '/' } = Astro.props
+const { activeSection = 'dashboard', user = { name: 'Admin User', email: 'admin@example.com' } } = Astro.props;
 
-const adminRoutes = [
-  {
-    href: '/dashboard/posts',
-    label: 'Posts',
-    icon: Docs,
-  },
-  {
-    href: '/dashboard/posts',
-    label: 'Posts',
-    icon: Docs,
-  },
-
-  {
-    href: '/dashboard/users',
-    label: 'Users',
-    icon: Users,
-  },
-]
-
-const isActive = (href: string) => currentPath === href
+const sidebarItems = [
+  // { id: "dashboard", label: "Dashboard", icon: BarChart3 },
+  { id: "posts", label: "Posts", icon: PostIcon },
+  // { id: "users", label: "Users", icon: Users },
+  // { id: "settings", label: "Settings", icon: Settings },
+];
 ---
 
-<aside
-  class='left-24 z-40
-  md:block md:w-56 h-screen
-  bg-complementary/95 backdrop-blur-sm border-r border-primary
-  shadow-lg shadow-primary/10
-  flex flex-col'
->
-  <!-- Header del sub-panel -->
-  <div class='p-4 border-b border-primary/50'>
-    <h2 class='text-lg font-semibold text-neutral'>Dashboard</h2>
-    <p class='text-xs text-neutral/60 mt-1'>Panel Administrativo</p>
+<aside class="w-64 h-screen flex flex-col border-r" style="background: var(--color-primary); border-color: var(--color-accent);">
+  <!-- Logo Section -->
+  <div class="p-6 border-b" style="border-color: var(--color-accent);">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 relative">
+        <img src="/public/svg/isologo-color.svg" alt="Logo" class="object-contain w-full h-full" />
+      </div>
+      <div>
+  <h1 class="text-[var(--color-neutral)] font-mono font-bold text-lg">Admin Panel</h1>
+  <p class="text-[color-mix(in_srgb,var(--color-neutral)_70%,transparent)] text-sm">Post Management</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Navegación de sub-rutas -->
-  <nav class='flex-1 p-4 overflow-y-auto'>
-    <ul class='space-y-2'>
-      {
-        adminRoutes.map(({ href, label, icon: Icon }) => (
+  <!-- Navigation Items -->
+  <nav class="flex-1 p-4 space-y-2">
+    <ul class="space-y-1">
+      {sidebarItems.map(item => {
+        const Icon = item.icon;
+        const isActive = activeSection === item.id;
+        return (
           <li>
             <a
-              href={href}
-              class={`
-                group relative flex items-center
-                w-full px-3 py-3 text-sm font-medium
-                rounded-lg transition-all duration-300 ease-out
-                border border-transparent
-                hover:scale-[1.01] hover:shadow-md hover:shadow-neutral/10
-                ${isActive(href) 
-                  ? 'bg-neutral/15 text-white border-neutral/40 shadow-md shadow-neutral/20' 
-                  : 'text-neutral/80 border-white/10 hover:bg-neutral/8 hover:border-neutral/30 hover:text-neutral'
-                }
+              href="#"
+              class={`flex items-center gap-3 h-12 px-3 rounded-lg font-medium text-sm transition-all duration-200
+                ${isActive
+                  ? "bg-[var(--color-accent)] text-[var(--color-neutral)]"
+                  : "text-[color-mix(in_srgb,var(--color-neutral)_80%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_70%,transparent)] hover:text-[var(--color-neutral)]"}
               `}
-              aria-current={isActive(href) ? 'page' : undefined}
-              title={label}
+              aria-current={isActive ? "page" : undefined}
+              data-section={item.id}
             >
-
-              {/* Glow effect para elemento activo */}
-              {isActive(href) && (
-                <div class='absolute inset-0 bg-neutral/5 opacity-50 rounded-lg blur-sm' />
-              )}
-
-              {/* Indicador activo - Left border */}
-              {isActive(href) && (
-                <div class='absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 bg-neutral rounded-r-full' />
-              )}
-
-              <!-- Icono -->
-              <Icon class="relative z-10 h-5 w-5 text-current mr-3 flex-shrink-0 transition-transform duration-300 group-hover:scale-110" />
-
-              <!-- Texto -->
-              <span class='relative z-10 font-medium'>
-                {label}
-              </span>
-
-              <!-- Flecha indicativa (opcional) -->
-              <svg 
-                class={`relative z-10 h-4 w-4 ml-auto transition-all duration-300 ${
-                  isActive(href) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-1 group-hover:opacity-50 group-hover:translate-x-0'
-                }`}
-                fill='currentColor' 
-                viewBox='0 0 20 20'
-              >
-                <path fill-rule='evenodd' d='M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z' clip-rule='evenodd' />
-              </svg>
+              <Icon class="w-5 h-5" />
+              <span class="font-sans">{item.label}</span>
             </a>
           </li>
-        ))
-      }
+        );
+      })}
     </ul>
   </nav>
 
-  <div>
-    <button id="btn-logout">
-      <Text>
-      Cerrar sesión
-      </Text>
-    </button>
-  </div>
-
-  <!-- Footer opcional con información adicional -->
-  <div class='p-4 border-t border-primary/50'>
-    <div class='text-xs text-neutral/50 text-center'>
-      <p>Admin Panel v1.0</p>
+  <!-- User Section -->
+  <div class="p-4 border-t" style="border-color: var(--color-accent);">
+    <div class="flex items-center gap-3 mb-4 p-3 rounded-lg" style="background: var(--color-accent);">
+      <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--color-secondary);">
+        <span class="text-[var(--color-neutral)] font-mono font-bold text-sm">
+          {user?.name?.charAt(0) || "A"}
+        </span>
+      </div>
+      <div class="flex-1 min-w-0">
+        <p class="text-[var(--color-neutral)] font-medium text-sm truncate">{user?.name || "Admin User"}</p>
+        <p class="text-[color-mix(in_srgb,var(--color-neutral)_70%,transparent)] text-xs truncate">{user?.email || "admin@example.com"}</p>
+      </div>
     </div>
+    <a
+      href="#"
+      id="btn-logout"
+      class="w-full flex items-center gap-3 h-10 text-[var(--color-neutral)] hover:bg-[color-mix(in_srgb,#e06c75_10%,transparent)] hover:text-[#e06c75] transition-colors rounded-lg px-3 text-sm font-medium"
+    >
+      <LogOut class="w-4 h-4" />
+      <span class="font-sans">Cerrar sesión</span>
+    </a>
   </div>
 </aside>
 
-
 <script>
-import { $ } from '@lib/dom-selector';
-import { signOut } from '@lib/auth/auth-client';
-
-const btnLogout = $('#btn-logout');
-
-btnLogout?.addEventListener('click', async () => {
-  await signOut();
-  window.location.href = '/';
-});
+  import { signOut } from '@lib/auth/auth-client';
+  // Navegación de secciones
+  document.querySelectorAll('a[data-section]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const section = link.getAttribute('data-section');
+      if (section) {
+        window.dispatchEvent(new CustomEvent('sidebar-section-change', { detail: { section } }));
+      }
+    });
+  });
+  // Logout
+  const btnLogout = document.getElementById('btn-logout');
+  btnLogout?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await signOut();
+    window.location.href = '/';
+  });
 </script>
