@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1e0c3fff;
-  --color-secondary: #59368fff;
+  --color-primary: #0f0620;
+  --color-secondary: #a855f7;
   --color-neutral: #e8d2ffff;
   --color-complementary: #130c25ff;
   --color-accent: #2c1d57;
+  --color-accent-hover: #c27aff;
 
   /* Font variables from astro experimentals fonts .astro.config.mjs */
   --font-primary: var(--font-space-mono);

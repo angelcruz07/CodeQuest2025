@@ -5,7 +5,7 @@ interface Props {
   component?: "p" | "div" | "span" | "cite" | "blockquote";
   className?: string;
   fontSize?: "large" | "medium" | "small";
-  color?: "primary" | "secondary" | "accent";
+  color?: "primary" | "secondary" | "accent" | "none";
 }
 
 const {
@@ -17,8 +17,8 @@ const {
 } = Astro.props as Props;
 
 const getTextClasses = (
-  fontSize: string | undefined,
-  color: string | undefined,
+  fontSize: "large" | "medium" | "small" | undefined,
+  color: "primary" | "secondary" | "accent" | "none" | undefined,
 ) => {
   const sizeMap = {
     large: "text-lg lg:text-xl",
@@ -30,9 +30,13 @@ const getTextClasses = (
     primary: "text-primary",
     secondary: "text-secondary",
     accent: "text-white",
+    none: "",
   };
 
-  return clsx(fontSize && sizeMap[fontSize], color && colorMap[color]);
+  return clsx(
+    fontSize ? sizeMap[fontSize] : undefined,
+    color ? colorMap[color] : undefined,
+  );
 };
 ---
 

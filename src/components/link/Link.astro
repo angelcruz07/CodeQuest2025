@@ -17,8 +17,8 @@ const getColorSchemeClasses = (colorScheme: string = "text-primary") => {
   };
 
   return clsx(
-    "transition-colors duration-200 ease-in-out",
-    "hover:underline",
+    "cursor-pointer transition-colors duration-200 ease-in-out",
+    "hover:text-accent-hover hover:underline",
     "no-underline",
     "font-secondary",
     colorScheme && colorMap[colorScheme as keyof typeof colorMap],

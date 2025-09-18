@@ -17,10 +17,9 @@ const {
 } = Astro.props as Props;
 
 const getHeadingClasses = (
-  fontSize: "large" | "medium" | "small" = "medium",
+  fontSize: "large" | "medium" | "small" | undefined,
   color: string = "accent",
 ) => {
-  // Map custom sizes to Tailwind's utility classes
   const sizeMap = {
     large: "text-4xl sm:text-5xl lg:text-6xl font-black",
     medium: "text-2xl sm:text-3xl lg:text-4xl font-bold",
