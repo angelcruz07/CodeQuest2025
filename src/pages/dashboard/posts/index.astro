@@ -1,12 +1,16 @@
 ---
-import DashboardLayout from '@layouts/DashboardLayout.astro'
-// import Navigation from '../Navigation.astro'
-import PostForm  from '@components/dashboard/post/PostForm'
+import DashboardLayout from "@layouts/DashboardLayout.astro";
+import PostForm from "@components/dashboard/post/PostForm";
+
+const { user } = Astro.locals;
+
+if (!user || user.role !== "admin") {
+  return Astro.redirect("/");
+}
 ---
 
-<DashboardLayout title='posts'>
-  <!-- <Navigation /> -->
-  <div class='p-8'>
-    <PostForm client:load/>
+<DashboardLayout title="posts">
+  <div class="p-8">
+    <PostForm client:load />
   </div>
 </DashboardLayout>

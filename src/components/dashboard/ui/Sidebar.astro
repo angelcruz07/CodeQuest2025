@@ -1,100 +1,130 @@
 ---
-import PostIcon from '@icons/dashboard/post.svg';
-import LogOut from '@icons/dashboard/logout.svg'; 
-import Heading from '../../heading/Heading.astro';
+import PostIcon from "@icons/dashboard/post.svg";
+import LogOut from "@icons/dashboard/logout.svg";
+import Link from "../../link/Link.astro";
 
-const { activeSection = 'dashboard', user = { name: 'Admin User', email: 'admin@example.com' } } = Astro.props;
+const { activeSection = "dashboard" } = Astro.props;
+
+const { user } = Astro.locals;
 
 const sidebarItems = [
-  // { id: "dashboard", label: "Dashboard", icon: BarChart3 },
-  { id: "posts", label: "Posts", icon: PostIcon },
-  // { id: "users", label: "Users", icon: Users },
-  // { id: "settings", label: "Settings", icon: Settings },
+  { id: "posts", label: "Posts", icon: PostIcon, path: "/dashboard/post/" },
 ];
 ---
 
-<aside class="w-64 h-screen flex flex-col border-r" style="background: var(--color-primary); border-color: var(--color-accent);">
+<aside
+  class="flex h-screen w-64 flex-col border-r"
+  style="background: var(--color-primary); border-color: var(--color-accent);"
+>
   <!-- Logo Section -->
-  <div class="p-6 border-b" style="border-color: var(--color-accent);">
+  <div class="border-b p-6" style="border-color: var(--color-accent);">
     <div class="flex items-center gap-3">
-      <div class="w-10 h-10 relative">
-        <img src="/public/svg/isologo-color.svg" alt="Logo" class="object-contain w-full h-full" />
+      <div class="relative h-10 w-10">
+        <img
+          src="/public/svg/isologo-color.svg"
+          alt="Logo"
+          class="h-full w-full object-contain"
+        />
       </div>
       <div>
-  <h1 class="text-[var(--color-neutral)] font-mono font-bold text-lg">Admin Panel</h1>
-  <p class="text-[color-mix(in_srgb,var(--color-neutral)_70%,transparent)] text-sm">Post Management</p>
+        <h1 class="font-mono text-lg font-bold text-[var(--color-neutral)]">
+          Admin Panel
+        </h1>
+        <p
+          class="text-sm text-[color-mix(in_srgb,var(--color-neutral)_70%,transparent)]"
+        >
+          Post Management
+        </p>
       </div>
     </div>
   </div>
 
   <!-- Navigation Items -->
-  <nav class="flex-1 p-4 space-y-2">
+  <nav class="flex-1 space-y-2 p-4">
     <ul class="space-y-1">
-      {sidebarItems.map(item => {
-        const Icon = item.icon;
-        const isActive = activeSection === item.id;
-        return (
-          <li>
-            <a
-              href="#"
-              class={`flex items-center gap-3 h-12 px-3 rounded-lg font-medium text-sm transition-all duration-200
-                ${isActive
-                  ? "bg-[var(--color-accent)] text-[var(--color-neutral)]"
-                  : "text-[color-mix(in_srgb,var(--color-neutral)_80%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_70%,transparent)] hover:text-[var(--color-neutral)]"}
-              `}
-              aria-current={isActive ? "page" : undefined}
-              data-section={item.id}
-            >
-              <Icon class="w-5 h-5" />
-              <span class="font-sans">{item.label}</span>
-            </a>
-          </li>
-        );
-      })}
+      {
+        sidebarItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = activeSection === item.id;
+          return (
+            <li>
+              <Link
+                href={item.path}
+                className={`flex h-12 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-all duration-200 ${
+                  isActive
+                    ? "bg-[var(--color-accent)] text-[var(--color-neutral)]"
+                    : "text-[color-mix(in_srgb,var(--color-neutral)_80%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_70%,transparent)] hover:text-[var(--color-neutral)]"
+                } `}
+                aria-current={isActive ? "page" : undefined}
+                data-section={item.id}
+              >
+                <Icon class="h-5 w-5" />
+                <span class="font-sans">{item.label}</span>
+              </Link>
+            </li>
+          );
+        })
+      }
     </ul>
   </nav>
 
   <!-- User Section -->
-  <div class="p-4 border-t" style="border-color: var(--color-accent);">
-    <div class="flex items-center gap-3 mb-4 p-3 rounded-lg" style="background: var(--color-accent);">
-      <div class="w-8 h-8 rounded-full flex items-center justify-center" style="background: var(--color-secondary);">
-        <span class="text-[var(--color-neutral)] font-mono font-bold text-sm">
+  <div class="border-t p-4" style="border-color: var(--color-accent);">
+    <div
+      class="mb-4 flex items-center gap-3 rounded-lg p-3"
+      style="background: var(--color-accent);"
+    >
+      <div
+        class="flex h-8 w-8 items-center justify-center rounded-full"
+        style="background: var(--color-secondary);"
+      >
+        <span class="font-mono text-sm font-bold text-[var(--color-neutral)]">
           {user?.name?.charAt(0) || "A"}
         </span>
       </div>
-      <div class="flex-1 min-w-0">
-        <p class="text-[var(--color-neutral)] font-medium text-sm truncate">{user?.name || "Admin User"}</p>
-        <p class="text-[color-mix(in_srgb,var(--color-neutral)_70%,transparent)] text-xs truncate">{user?.email || "admin@example.com"}</p>
+      <div class="min-w-0 flex-1">
+        <p class="truncate text-sm font-medium text-[var(--color-neutral)]">
+          {user?.name || "Admin User"}
+        </p>
+        <p
+          class="truncate text-xs text-[color-mix(in_srgb,var(--color-neutral)_70%,transparent)]"
+        >
+          {user?.email || "admin@example.com"}
+        </p>
       </div>
     </div>
     <a
       href="#"
       id="btn-logout"
-      class="w-full flex items-center gap-3 h-10 text-[var(--color-neutral)] hover:bg-[color-mix(in_srgb,#e06c75_10%,transparent)] hover:text-[#e06c75] transition-colors rounded-lg px-3 text-sm font-medium"
+      class="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-sm font-medium text-[var(--color-neutral)] transition-colors hover:bg-[color-mix(in_srgb,#e06c75_10%,transparent)] hover:text-[#e06c75]"
     >
-      <LogOut class="w-4 h-4" />
+      <LogOut class="h-4 w-4" />
       <span class="font-sans">Cerrar sesión</span>
     </a>
   </div>
 </aside>
 
 <script>
-  import { signOut } from '@lib/auth/auth-client';
+  import { signOut } from "@lib/auth/auth-client";
+
   // Navegación de secciones
-  document.querySelectorAll('a[data-section]').forEach(link => {
-    link.addEventListener('click', (e) => {
+  document.querySelectorAll("a[data-section]").forEach((link) => {
+    link.addEventListener("click", (e) => {
       e.preventDefault();
-      const section = link.getAttribute('data-section');
+      const section = link.getAttribute("data-section");
       if (section) {
-        window.dispatchEvent(new CustomEvent('sidebar-section-change', { detail: { section } }));
+        window.dispatchEvent(
+          new CustomEvent("sidebar-section-change", { detail: { section } }),
+        );
       }
     });
   });
+
   // Logout
-  const btnLogout = document.getElementById('btn-logout');
-  btnLogout?.addEventListener('click', async (e) => {
+  const btnLogout = document.getElementById("btn-logout");
+  btnLogout?.addEventListener("click", async (e) => {
     e.preventDefault();
     await signOut();
-    window.location.href = '/';
+    window.location.href = "/";
   });
 </script>

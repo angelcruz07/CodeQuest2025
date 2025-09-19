@@ -1,0 +1,24 @@
+---
+import Button from "../../button/Button.astro";
+import Heading from "../../heading/Heading.astro";
+import Text from "../../text/Text.astro";
+---
+
+<div class="mb-8 flex items-center justify-between">
+  <div>
+    <Heading className="text-foreground text-3xl font-bold">Dashboard</Heading>
+    <Text className="text-muted-foreground mt-1"
+      >Gestiona tu blog desde aquí</Text
+    >
+  </div>
+  <div class="flex items-center gap-4">
+    <Button variant="outline">
+      <!-- <Bell class="mr-2 h-4 w-4" /> -->
+      Notificaciones
+    </Button>
+    <Button>
+      <!-- <Plus class="mr-2 h-4 w-4" /> -->
+      Nuevo Post
+    </Button>
+  </div>
+</div>
