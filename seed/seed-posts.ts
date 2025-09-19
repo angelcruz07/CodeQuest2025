@@ -1,5 +1,5 @@
 import { categories as categorySeed } from './seed-categories.ts'; 
-import { authors as authorSeed } from './seed-authors.ts';
+import { users as userSeed } from './seed-users.ts';
 
 interface Post { 
   title: string; 
@@ -9,11 +9,11 @@ interface Post {
   tags: string[];
   slug: string; 
   categories: string[];
-  authorId: string;
+  userId: string;
 }
 
 const categoryNames = categorySeed.map(c => c.name);
-const authorIds = authorSeed.map(a => a.id);
+const userIds = userSeed.map(u => u.id);
 
 export const posts: Post[] = [
   {
@@ -24,7 +24,7 @@ export const posts: Post[] = [
     tags: ["react", "frontend", "javascript"],
     slug: "introduccion-a-react-frontend",
     categories: [categoryNames[0], categoryNames[12]],
-    authorId: authorIds[0],
+    userId: userIds[0],
   },
   {
     title: "Construyendo APIs REST con Node.js",
@@ -34,7 +34,7 @@ export const posts: Post[] = [
     tags: ["nodejs", "backend", "api"],
     slug: "construyendo-apis-rest-nodejs",
     categories: [categoryNames[1], categoryNames[20]],
-    authorId: authorIds[1],
+    userId: userIds[1],
   },
   {
     title: "Primeros pasos en Data Science con Python",
@@ -44,7 +44,7 @@ export const posts: Post[] = [
     tags: ["python", "data-science", "analisis"],
     slug: "primeros-pasos-data-science-python",
     categories: [categoryNames[4], categoryNames[19]],
-    authorId: authorIds[2],
+    userId: userIds[2],
   },
   {
     title: "Automatización de despliegues con Docker y DevOps",
@@ -54,7 +54,7 @@ export const posts: Post[] = [
     tags: ["docker", "devops", "ci/cd"],
     slug: "automatizacion-despliegues-docker-devops",
     categories: [categoryNames[3], categoryNames[10]],
-    authorId: authorIds[3],
+    userId: userIds[3],
   },
   {
     title: "Diseño de Arquitecturas de Microservicios",
@@ -64,7 +64,7 @@ export const posts: Post[] = [
     tags: ["arquitectura", "microservicios", "backend"],
     slug: "diseno-arquitecturas-microservicios",
     categories: [categoryNames[20], categoryNames[6]],
-    authorId: authorIds[4]
+    userId: userIds[4]
   },
   {
     title: "Introducción a TypeScript",
@@ -74,7 +74,7 @@ export const posts: Post[] = [
     tags: ["typescript", "javascript", "tipado"],
     slug: "introduccion-a-typescript",
     categories: [categoryNames[2], categoryNames[5]],
-    authorId: authorIds[0],
+    userId: userIds[0],
   },
   {
     title: "Desarrollo Web con Astro",
@@ -84,7 +84,7 @@ export const posts: Post[] = [
     tags: ["astro", "web", "ssg"],
     slug: "desarrollo-web-con-astro",
     categories: [categoryNames[0], categoryNames[7]],
-    authorId: authorIds[1],
+    userId: userIds[1],
   },
   {
     title: "Fundamentos de Git y GitHub",
@@ -94,7 +94,7 @@ export const posts: Post[] = [
     tags: ["git", "github", "control de versiones"],
     slug: "fundamentos-git-github",
     categories: [categoryNames[8], categoryNames[0]],
-    authorId: authorIds[2],
+    userId: userIds[2],
   },
   {
     title: "Testing de Aplicaciones Frontend",
@@ -104,7 +104,7 @@ export const posts: Post[] = [
     tags: ["testing", "frontend", "react", "vue"],
     slug: "testing-aplicaciones-frontend",
     categories: [categoryNames[0], categoryNames[9]],
-    authorId: authorIds[3],
+    userId: userIds[3],
   },
   {
     title: "Introducción a GraphQL",
@@ -114,7 +114,7 @@ export const posts: Post[] = [
     tags: ["graphql", "api", "backend"],
     slug: "introduccion-a-graphql",
     categories: [categoryNames[1], categoryNames[11]],
-    authorId: authorIds[4],
+    userId: userIds[4],
   },
   {
     title: "CSS Moderno con Tailwind",
@@ -124,7 +124,7 @@ export const posts: Post[] = [
     tags: ["css", "tailwind", "frontend"],
     slug: "css-moderno-tailwind",
     categories: [categoryNames[0], categoryNames[13]],
-    authorId: authorIds[0],
+    userId: userIds[0],
   },
   {
     title: "APIs REST vs GraphQL",
@@ -134,7 +134,7 @@ export const posts: Post[] = [
     tags: ["api", "rest", "graphql"],
     slug: "apis-rest-vs-graphql",
     categories: [categoryNames[1], categoryNames[11]],
-    authorId: authorIds[1],
+    userId: userIds[1],
   },
   {
     title: "Introducción a Next.js",
@@ -144,7 +144,7 @@ export const posts: Post[] = [
     tags: ["nextjs", "react", "ssr"],
     slug: "introduccion-a-nextjs",
     categories: [categoryNames[0], categoryNames[7]],
-    authorId: authorIds[2],
+    userId: userIds[2],
   },
   {
     title: "Patrones de Arquitectura Frontend",
@@ -154,7 +154,7 @@ export const posts: Post[] = [
     tags: ["arquitectura", "frontend", "patrones"],
     slug: "patrones-arquitectura-frontend",
     categories: [categoryNames[0], categoryNames[6]],
-    authorId: authorIds[3],
+    userId: userIds[3],
   },
   {
     title: "Automatización con GitHub Actions",
@@ -164,7 +164,7 @@ export const posts: Post[] = [
     tags: ["github", "ci/cd", "automatizacion"],
     slug: "automatizacion-github-actions",
     categories: [categoryNames[8], categoryNames[10]],
-    authorId: authorIds[4],
+    userId: userIds[4],
   },
   {
     title: "Introducción a Prisma ORM",
@@ -174,7 +174,7 @@ export const posts: Post[] = [
     tags: ["prisma", "orm", "nodejs"],
     slug: "introduccion-a-prisma-orm",
     categories: [categoryNames[1], categoryNames[12]],
-    authorId: authorIds[0],
+    userId: userIds[0],
   },
   {
     title: "Despliegue en Vercel y Netlify",
@@ -184,7 +184,7 @@ export const posts: Post[] = [
     tags: ["vercel", "netlify", "deploy"],
     slug: "despliegue-vercel-netlify",
     categories: [categoryNames[7], categoryNames[10]],
-    authorId: authorIds[1],
+    userId: userIds[1],
   },
   {
     title: "Scraping Web con Python",
@@ -194,7 +194,7 @@ export const posts: Post[] = [
     tags: ["python", "scraping", "web"],
     slug: "scraping-web-python",
     categories: [categoryNames[4], categoryNames[19]],
-    authorId: authorIds[2],
+    userId: userIds[2],
   },
   {
     title: "Introducción a Docker Compose",
@@ -204,7 +204,7 @@ export const posts: Post[] = [
     tags: ["docker", "compose", "devops"],
     slug: "introduccion-docker-compose",
     categories: [categoryNames[3], categoryNames[10]],
-    authorId: authorIds[3],
+    userId: userIds[3],
   },
   {
     title: "Optimización de Imágenes para Web",
@@ -214,7 +214,7 @@ export const posts: Post[] = [
     tags: ["imagenes", "web", "performance"],
     slug: "optimizacion-imagenes-web",
     categories: [categoryNames[7], categoryNames[13]],
-    authorId: authorIds[4],
+    userId: userIds[4],
   },
   {
     title: "Introducción a Svelte",
@@ -224,6 +224,6 @@ export const posts: Post[] = [
     tags: ["svelte", "frontend", "javascript"],
     slug: "introduccion-a-svelte",
     categories: [categoryNames[0], categoryNames[7]],
-    authorId: authorIds[0],
+    userId: userIds[0],
   }
 ];
