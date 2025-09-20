@@ -1,29 +1,28 @@
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import prisma from "@lib/prisma";
-import { post } from "@actions/post";
 
 export const createUpdateComment = defineAction({
     accept: 'form',
     input: z.object({
         id: z.string().optional(),
-        content: z.array(z.string().min(3).max(250)),
-        postId: z.number(),
-        authorId: z.number(),
-        parent: z.number().optional(),
-        replies: z.array(z.string().min(3).max(250)).optional()
+        content: z.array(z.string()).min(3).max(255),
+        postId: z.string(),
+        userId: z.string(),
+        parentId: z.string().min(3).max(255).optional(),
+        replies: z.array(z.string().min(3).max(255)).optional()
     }),
-    handler: async ({ id, content, postId, authorId, parent, replies }) => {
-        try {
+    handler: async ({ id, content, postId, userId, parentId, replies }) => {
+        try { 
             if (id) {
                 const updatedComment = await prisma.comment.update({
-                    where: { id: Number(id) },
+                    where: { id: id },
                     data: {
-                        content,
+                        content: content.join(' '),
                         post: { connect: { id: postId } },
-                        author: { connect: { id: authorId } },
-                        parent: parent ? { connect: { id: parent } } : undefined,
-                        replies: replies ? { set: replies.map(reply => ({ id: Number(reply) })) } : undefined
+                        user: { connect: { id: userId } },
+                        parent: parentId ? { connect: { id: parentId } } : undefined,
+                        replies: replies ? { set: replies.map(reply => ({ id: reply })) } : undefined
                     }
                 });
                 return updatedComment;
@@ -32,9 +31,9 @@ export const createUpdateComment = defineAction({
                 data: {
                     content: content.join(' '),
                     post: { connect: { id: postId } },
-                    author: { connect: { id: authorId } },
-                    parent: parent ? { connect: { id: parent } } : undefined,
-                    replies: replies ? { set: replies.map(reply => ({ id: Number(reply) })) } : undefined
+                    user: { connect: { id: userId } },
+                    parent: parentId ? { connect: { id: parentId } } : undefined,
+                    replies: replies ? { connect: replies.map(reply => ({ id: reply })) } : undefined
                 }
             });
             return newPost;

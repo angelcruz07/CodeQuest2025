@@ -1,24 +1,21 @@
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import prisma from "@lib/prisma";
-import { post } from "@actions/post";
-import { ACTION_API_CONTEXT_SYMBOL } from "astro/actions/runtime/utils.js";
 
 export const getCommentsByPostId =  defineAction({
     accept: 'form',
     input: z.object({
-        postId: z.number()
+        postId: z.string()
     }),
     handler: async ({postId}) => {
         try {
             const commentByPostId = await prisma.comment.findUnique({
-                where: {id: postId},
+                where: { id: postId},
                 include: {
-                    author: true,
+                    user: true,
                     post: true,
-                    content: true,
                     parent: true,
-                    replies: true
+                    replies: true,
                 }
             });
             return commentByPostId;

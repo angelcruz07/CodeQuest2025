@@ -2,16 +2,14 @@ import { ActionError, defineAction } from "astro:actions";
 import prisma from "@lib/prisma";
 
 export const getComments = defineAction({
-    accept: 'form',
-    handler: async () => {
+    handler: async () => { 
         try {
             const comments = await prisma.comment.findMany({
                 include: {
-                    author: true,
+                    user: true,
                     post: true,
-                    content: true,
                     parent: true,
-                    replies: true
+                    replies: true,
                 }
             });
             return comments;

@@ -10,7 +10,7 @@ export const deleteComment = defineAction({
     handler: async({id}) => {
         try {
             const deletedComment = await prisma.comment.delete({
-                where: {id: Number(id)}
+                where: { id: id }
             });
             return deletedComment;
         } catch (e) {
