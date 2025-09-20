@@ -52,11 +52,12 @@ model Post {
   description String
   content String
   likes Int @default(0)
-  image String[]
+  image String
   tags String[]
   slug String @unique
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
+  createdAt DateTime @default(now())
   userId String
   author User @relation("UserPosts", fields: [userId], references: [id])
   categories Category[] @relation("PostCategories")
