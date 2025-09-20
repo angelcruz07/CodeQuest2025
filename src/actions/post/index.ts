@@ -1,13 +1,13 @@
 import { createUpdatePost } from "./createUpdatePost.action";
 import { deletePost } from "./deletePost.action";
-import { getPostBySlug } from "./getPostBySlug.action"; 
+import { getPostBySlug } from "./getPostBySlug.action";
 import { getPosts } from "./getPosts.action";
 import getPostByPage from "./getPostByPage.action";
 
 export const post = {
-    createUpdatePost,
-    deletePost,
-    getPostBySlug,
-    getPostByPage,
-    getPosts
-}
+  createUpdatePost,
+  deletePost,
+  getPostBySlug,
+  getPostByPage,
+  getPosts,
+};

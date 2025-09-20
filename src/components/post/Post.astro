@@ -1,0 +1,41 @@
+---
+import Heading from "../heading/Heading.astro";
+import Text from "../text/Text.astro";
+
+import Calendar from "@icons/calendar.svg";
+import User from "@icons/user.svg";
+import Folder from "@icons/folder.svg";
+
+// interface Props {
+//   title: string;
+//   date: string;
+// }
+
+//const { title } = Astro.props;
+---
+
+<section class="p-10">
+  <Heading component="h1" fontSize="large">
+    Desarrollo de Inteligencia Artificial: Un Futuro Impulsado por la Innovación
+  </Heading>
+
+  <article class="mt-10 flex gap-x-5">
+    <!-- Date -->
+    <div class="flex items-center gap-2 text-sm">
+      <Calendar class="h-4 w-4 text-white" />
+      <Text component="span">17/09/2025</Text>
+    </div>
+
+    <!-- Author -->
+    <div class="flex items-center gap-2 text-sm">
+      <User class="h-4 w-4 text-white" />
+      <Text component="span">Por Jonh Doe</Text>
+    </div>
+
+    <!-- Category -->
+    <div class="flex items-center gap-2 text-sm">
+      <Folder class="h-4 w-4 text-white" />
+      <Text component="span">IA</Text>
+    </div>
+  </article>
+</section>

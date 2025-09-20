@@ -1,10 +1,24 @@
 ---
+import { actions } from "astro:actions";
 import Layout from "@layouts/Layout.astro";
 import Heading from "@components/heading/Heading.astro";
 import Text from "@components/text/Text.astro";
 import GridPost from "@components/post/gridpost/GridPost.astro";
 import Search from "@components/search/Search.astro";
 import Pagination from "@components/pagination/Pagination.astro";
+
+const searchParams = Astro.url.searchParams;
+const pageParam = Number(searchParams.get("page") ?? 1);
+
+const { data } = await Astro.callAction(actions.post.getPostByPage, {
+  page: pageParam,
+});
+
+if (!data) {
+  return Astro.redirect("/500");
+}
+
+const { totalPages, posts } = data;
 ---
 
 <Layout title="Blog">
@@ -19,7 +33,7 @@ import Pagination from "@components/pagination/Pagination.astro";
       <Search />
     </div>
 
-    <GridPost />
-    <Pagination totalPages={5} />
+    <GridPost posts={posts} />
+    <Pagination totalPages={totalPages} />
   </section>
 </Layout>

@@ -1,8 +1,10 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Post from "@components/post/Post.astro";
+
 const { slug } = Astro.params;
 ---
 
 <Layout title={`Blog Post - ${slug}`} description="Detalle del post del blog">
-  Blog Post: {slug}
+  <Post />
 </Layout>

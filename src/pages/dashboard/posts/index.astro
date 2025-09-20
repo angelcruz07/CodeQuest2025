@@ -1,6 +1,7 @@
 ---
 import DashboardLayout from "@layouts/DashboardLayout.astro";
 import PostForm from "@components/dashboard/post/PostForm";
+import PostView from "@components/dashboard/post/PostView";
 
 const { user } = Astro.locals;
 
@@ -11,6 +12,7 @@ if (!user || user.role !== "admin") {
 
 <DashboardLayout title="posts">
   <div class="p-8">
-    <PostForm client:load />
+    <!-- //     <PostForm client:load /> -->
+    <PostView client:load />
   </div>
 </DashboardLayout>
