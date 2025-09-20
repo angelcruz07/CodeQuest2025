@@ -14,7 +14,7 @@ interface PostsResponse {
   totalPages: number;
 }
 
-const getPostsByPage = defineAction({
+export const getPostsByPage = defineAction({
   input: z.object({
     page: z.number().default(1),
     limit: z.number().default(6),
@@ -77,5 +77,3 @@ const getPostsByPage = defineAction({
     }
   },
 });
-
-export default getPostsByPage;
