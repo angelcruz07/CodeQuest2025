@@ -7,59 +7,58 @@ export const createUpdatePost = defineAction({
     input: z.object({
         id: z.string().optional(),
         title: z.string().min(3).max(50),
+        description: z.string().min(3).max(255),
         content: z.string().min(10),
         image: z.array(z.string().url()),
-        tags: z.string().min(3).max(20),
+        tags: z.string().min(3).max(200), 
         slug: z.string().min(5).max(30),
-        // author: z.number(),
         categories: z.array(z.string().min(3).max(50)),
+        userId: z.string().min(1), 
     }),
-    handler: async ({ id, title, content, image, tags, slug, categories }) => {
+    handler: async ({ id, title, description, content, image, tags, slug, categories, userId }) => {
         try {
-            console.log(id, title, content, image, tags, slug, categories);
             const tagsArray = tags.split(',').map(tag => tag.trim().toLowerCase());
-            const categoriesArray = categories.map(category => category.trim().toLowerCase());
 
             if (id) {
                 const updatedPost = await prisma.post.update({
                     where: { id },
                     data: {
                         title,
+                        description,
                         content,
                         image,
                         tags: { set: tagsArray },
                         slug,
-                        // author: { connect: { id: author } },
+                        userId,
                         categories: {
-                            connect: categories.map(name => ({ name }))
+                            connect: categories.map(categoryId => ({ id: categoryId }))
                         }
                     }
                 });
                 return updatedPost;
-            } else { 
-
-            const newPost = await prisma.post.create({
-                data: {
-                    title,
-                    content,
-                    image,
-                    tags: { set: tagsArray },
-                    slug,
-                    // author: { connect: { id: author } },
-                    categories: {
-                        connect: categories.map(name => ({ name }))
+            } else {
+                const newPost = await prisma.post.create({
+                    data: {
+                        title,
+                        description,
+                        content,
+                        image,
+                        tags: { set: tagsArray },
+                        slug,
+                        userId,
+                        categories: {
+                            connect: categories.map(categoryId => ({ id: categoryId }))
+                        }
                     }
-                }
-            });
-            return newPost;
+                });
+                return newPost;
             }
         } catch (e) {
             console.error("Error creating/updating post:", e);
             throw new ActionError({
                 code: "BAD_REQUEST",
-                message: "Error to updating the post" + (e instanceof Error ? e.message : String(e))
+                message: "Error updating the post: " + (e instanceof Error ? e.message : String(e))
             });
         }
     }
-
 });
