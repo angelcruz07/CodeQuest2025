@@ -1,35 +1,35 @@
----
-import { Image } from "astro:assets";
-import Text from "@components/text/Text.astro";
-import Tag from "@components/tags/Tag.astro";
-import Link from "@components/link/Link.astro";
-import Calendar from "@icons/calendar.svg";
-import User from "@icons/user.svg";
-import { type Post } from "@interfaces";
-import { dateFormat } from "@lib/date-format";
+<!-- ---
+import { Image } from 'astro:assets'
+import Text from '@components/text/Text.astro'
+import Tag from '@components/tags/Tag.astro'
+import Link from '@components/link/Link.astro'
+import Calendar from '@icons/calendar.svg'
+import User from '@icons/user.svg'
+import { type Post } from '@interfaces'
+import { dateFormat } from '@lib/date-format'
 
 interface Props {
-  post: Post;
+  post: Post
 }
 
-const { post } = Astro.props;
+const { post } = Astro.props
 ---
 
 <div
-  class="bg-accent/80 border-secondary flex max-w-96 flex-col rounded-md border"
+  class="bg-accent/80 border-secondary flex max-w-96 cursor-pointer flex-col rounded-md border"
 >
   <Image
-    src={post.image ?? "/images/code.jpg"}
+    src={post.image ?? './images/code.jpg'}
     alt={post.title}
     width={350}
     height={200}
-    class="h-48 w-96 rounded-t-md"
+    class='h-48 w-96 rounded-t-md'
   />
 
-  <div class="h-64 p-5">
+  <div class='h-64 p-5'>
     {
       post.tags && (
-        <div class="space-2 mb-4 flex flex-wrap gap-2">
+        <div class='space-2 mb-4 flex flex-wrap gap-2'>
           {post.tags.map((tag) => (
             <Tag {tag} />
           ))}
@@ -39,22 +39,22 @@ const { post } = Astro.props;
 
     <Link
       href={`/blog/${post.slug}`}
-      className="text-2xl font-semibold text-white"
-      >{post.title.slice(0, 35) + "..."}</Link
+      className='text-2xl font-semibold text-white'
+      >{post.title.slice(0, 35) + '...'}</Link
     >
-    <Text component="p" color="none" className="mt-5 text-sm text-white"
+    <Text component='p' color='none' className='mt-5 text-sm text-white'
       >{post.description}</Text
     >
 
-    <div class="flex justify-between">
-      <Text className="mt-5 flex items-center text-gray-500" fontSize="small">
-        <User color="#c27aff" />
+    <div class='flex justify-between'>
+      <Text className='mt-5 flex items-center text-gray-500' fontSize='small'>
+        <User color='#c27aff' />
         {post.author.name}
       </Text>
-      <Text className="mt-5 flex items-center text-gray-500" fontSize="small">
-        <Calendar color="#c27aff" />
+      <Text className='mt-5 flex items-center text-gray-500' fontSize='small'>
+        <Calendar color='#c27aff' />
         {dateFormat(post.createdAt)}
       </Text>
     </div>
   </div>
-</div>
+</div> -->
