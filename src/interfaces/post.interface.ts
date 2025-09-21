@@ -1,4 +1,4 @@
-import { type User } from "@prisma/client";
+import { type User, type Category } from "@prisma/client";
 
 export interface Post {
   title: string;
@@ -8,6 +8,6 @@ export interface Post {
   author: User;
   tags: string[];
   slug: string;
-  categories: string[];
+  categories: Category[];
   createdAt: Date;
 }

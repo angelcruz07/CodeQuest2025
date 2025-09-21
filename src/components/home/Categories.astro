@@ -2,6 +2,10 @@
 import Heading from "@components/heading/Heading.astro";
 import Text from "@components/text/Text.astro";
 import Section from "@components/section/Section.astro";
+import { actions } from "astro:actions";
+
+const { data } = await Astro.callAction(actions.category.getCategories, {});
+console.log(data);
 ---
 
 <Section>

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
 
 @theme {
   --color-primary: #0f0620;
@@ -15,7 +16,7 @@
 
 @utility container {
   margin-inline: auto;
-  padding-inline: 1rem;
+  padding-inline: 1.2rem;
 
   @media (width >= --theme(--breakpoint-sm)) {
     max-width: none;

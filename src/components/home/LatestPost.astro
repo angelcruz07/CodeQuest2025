@@ -24,7 +24,7 @@ const { posts } = data as unknown as { posts: Post[] };
     <Text>Explora los últimos posts de nuestro blog</Text>
   </div>
 
-  <div class="mt-20 flex justify-between gap-10 md:flex-row">
+  <div class="mt-20 flex flex-col justify-between gap-10 md:flex-row">
     {posts.map((post) => <PostCard post={post} />)}
   </div>
 </section>
