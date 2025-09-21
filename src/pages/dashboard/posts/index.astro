@@ -5,10 +5,10 @@ import { PostView } from "@components/dashboard/post/PostView";
 import Pagination from "@components/shared/Pagination.astro";
 import { actions } from "astro:actions";
 
-const { user } = Astro.locals;
+const { user } = Astro.locals
 
-if (!user || user.role !== "admin") {
-  return Astro.redirect("/");
+if (!user || user.role !== 'admin') {
+  return Astro.redirect('/')
 }
 
 const searchParams = Astro.url.searchParams;

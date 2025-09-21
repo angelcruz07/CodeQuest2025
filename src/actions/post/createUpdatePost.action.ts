@@ -1,6 +1,7 @@
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import prisma from "@lib/prisma";
+import { uploadImages } from "@lib/cloudinary/uploadImage";
 
 export const createUpdatePost = defineAction({
     accept: 'form',
@@ -9,7 +10,7 @@ export const createUpdatePost = defineAction({
         title: z.string().min(3).max(50),
         description: z.string().min(3).max(255),
         content: z.string().min(10),
-        image: z.array(z.string().url()),
+        image: z.any(),
         tags: z.string().min(3).max(200), 
         slug: z.string().min(5).max(30),
         categories: z.array(z.string().min(3).max(50)),
@@ -19,6 +20,12 @@ export const createUpdatePost = defineAction({
         try {
             const tagsArray = tags.split(',').map(tag => tag.trim().toLowerCase());
 
+            let imageUrls: string[] = [];
+            if (image) { 
+                const uploaded = await uploadImages(image); 
+                imageUrls = uploaded.filter((url): url is string => Boolean(url));
+            }
+
             if (id) {
                 const updatedPost = await prisma.post.update({
                     where: { id },
@@ -26,7 +33,7 @@ export const createUpdatePost = defineAction({
                         title,
                         description,
                         content,
-                        image,
+                        image: imageUrls,
                         tags: { set: tagsArray },
                         slug,
                         userId,
@@ -42,7 +49,7 @@ export const createUpdatePost = defineAction({
                         title,
                         description,
                         content,
-                        image,
+                        image: imageUrls,
                         tags: { set: tagsArray },
                         slug,
                         userId,
