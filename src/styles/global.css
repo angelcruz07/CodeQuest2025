@@ -1,10 +1,11 @@
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
 
 @theme {
   --color-primary: #0f0620;
   --color-secondary: #a855f7;
-  --color-neutral: #e8d2ffff;
-  --color-complementary: #130c25ff;
+  --color-neutral: #e8d2ff;
+  --color-complementary: #130c25;
   --color-accent: #2c1d57;
   --color-accent-hover: #c27aff;
 
@@ -15,12 +16,14 @@
 
 @utility container {
   margin-inline: auto;
-  padding-inline: 1.3rem;
+  padding-inline: 1.2rem;
+
   @media (width >= --theme(--breakpoint-sm)) {
     max-width: none;
     padding-inline: 2rem;
   }
-  @media (width >= 1200px) {
-    max-width: 1200px;
+
+  @media (width >= 1280px) {
+    max-width: 1536px;
   }
 }

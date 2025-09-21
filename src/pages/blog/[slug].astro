@@ -1,8 +1,21 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Post from "@components/post/Post.astro";
+import { actions } from "astro:actions";
+
 const { slug } = Astro.params;
+
+const { data } = await Astro.callAction(actions.post.getPostBySlug, {
+  slug: slug.trim(),
+});
+
+if (!data) {
+  return Astro.redirect("/404");
+}
+
+const post = data;
 ---
 
-<Layout title={`Blog Post - ${slug}`} description="Detalle del post del blog">
-  Blog Post: {slug}
+<Layout title={`${slug}`} description={data.description}>
+  <Post post={post} />
 </Layout>

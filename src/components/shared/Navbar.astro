@@ -40,7 +40,7 @@ const { user } = Astro.locals;
       </div>
     </div>
 
-    <AuthButtonNav user={user} />
+    <AuthButtonNav className="hidden md:flex" user={user} />
 
     <button
       id="open-menu-button"
@@ -52,34 +52,35 @@ const { user } = Astro.locals;
 
     <button
       id="close-menu-button"
-      class="cursor-pointer text-white md:hidden"
+      class="hidden cursor-pointer text-white md:hidden"
       type="button"
     >
       <X width={30} height={30} />
     </button>
   </nav>
-
-  <dialog
-    id="mobile-menu"
-    role="dialog"
-    aria-modal="true"
-    class="bg-complementary top-20 z-50 size-full h-96 max-w-full translate-x-0 text-white transition-discrete duration-300 lg:hidden starting:-translate-y-full [&:not([open])]:-translate-x-full"
-  >
-    <div class="flex flex-col items-center justify-between gap-y-8 px-5">
-      <div class="mb-5 flex flex-col items-center">
-        {
-          ROUTES_NAV.map((navLink) => {
-            return (
-              <Link href={navLink.path} colorScheme="accent">
-                {navLink.name}
-              </Link>
-            );
-          })
-        }
-      </div>
-    </div>
-  </dialog>
 </header>
+
+<dialog
+  id="mobile-menu"
+  role="dialog"
+  aria-modal="true"
+  class="bg-complementary fixed top-20 z-50 size-full translate-x-0 text-white transition-discrete duration-300 lg:hidden"
+>
+  <div class="mt-10 flex flex-col items-center justify-between gap-y-8 px-5">
+    <div class="mb-5 flex flex-col items-center gap-y-8">
+      {
+        ROUTES_NAV.map((navLink) => {
+          return (
+            <Link href={navLink.path} colorScheme="accent">
+              {navLink.name}
+            </Link>
+          );
+        })
+      }
+      <AuthButtonNav user={user} />
+    </div>
+  </div>
+</dialog>
 
 <script>
   import { $ } from "@lib/dom-selector";
@@ -93,7 +94,7 @@ const { user } = Astro.locals;
       openMenuButton?.classList.remove("hidden");
       closeMenuButton?.classList.add("hidden");
     } else {
-      mobileMenu.showModal();
+      mobileMenu.show();
       openMenuButton?.classList.add("hidden");
       closeMenuButton?.classList.remove("hidden");
     }

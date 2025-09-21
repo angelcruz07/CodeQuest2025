@@ -1,12 +1,37 @@
 ---
-import DashboardLayout from '@layouts/DashboardLayout.astro'
-// import Navigation from '../Navigation.astro'
-import PostForm  from '@components/dashboard/post/PostForm'
+import DashboardLayout from "@layouts/DashboardLayout.astro";
+import PostForm from "@components/dashboard/post/PostForm";
+import { PostView } from "@components/dashboard/post/PostView";
+import Pagination from "@components/shared/Pagination.astro";
+import { actions } from "astro:actions";
+
+const { user } = Astro.locals
+
+if (!user || user.role !== 'admin') {
+  return Astro.redirect('/')
+}
+
+const searchParams = Astro.url.searchParams;
+const pageParam = Number(searchParams.get("page") ?? 1);
+
+const { data } = await Astro.callAction(actions.post.getPostsByPage, {
+  page: pageParam,
+  limit: 4,
+});
+
+// if (!data) {
+//   return Astro.redirect("/500");
+// }
+
+const { totalPages, posts } = data ?? { totalPages: 0, posts: [] };
 ---
 
-<DashboardLayout title='posts'>
-  <!-- <Navigation /> -->
-  <div class='p-8'>
-    <PostForm client:load/>
+<DashboardLayout title="Post">
+  <div class="p-8">
+    <!-- <PostForm client:load /> -->
+    <div class="flex flex-col gap-y-5">
+      {posts.map((post) => <PostView key={post.id} post={post} client:load />)}
+    </div>
+    <Pagination totalPages={totalPages} />
   </div>
 </DashboardLayout>
