@@ -1,0 +1,39 @@
+---
+import Heading from "../heading/Heading.astro";
+import Text from "../text/Text.astro";
+import Calendar from "@icons/calendar.svg";
+
+import { dateFormat } from "@lib/date-format";
+
+interface Comment {
+  id: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  parentId: string | null;
+  parent: Comment | null;
+  replies: Comment[];
+  postId: string;
+  userId: string;
+  //user: User;
+}
+
+interface Props {
+  comment: Comment;
+}
+
+const { comment } = Astro.props;
+---
+
+<div class="border-accent rounded-md border p-5">
+  <div class="flex justify-between">
+    <Heading component="h3" fontSize="small">{comment.author}</Heading>
+    <Text className="flex">
+      <Calendar />
+      {dateFormat(comment.createdAt)}
+    </Text>
+  </div>
+
+  <Text>{comment.content}</Text>
+</div>

@@ -1,7 +1,6 @@
-import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import prisma from "@lib/prisma";
-import { ActionError } from "astro:actions";
+import { ActionError, defineAction } from "astro:actions";
 
 export const deletePost = defineAction({ 
     accept: 'form',
@@ -11,7 +10,7 @@ export const deletePost = defineAction({
     handler: async({id}) => { 
         try { 
             const deletedPost = await prisma.post.delete({ 
-                where: {id: Number(id)}
+                where: {id: id}
                 
             });
             return deletedPost;
