@@ -17,261 +17,153 @@ const userIds = userSeed.map((u) => u.id);
 
 export const posts: Post[] = [
   {
-    title: "Introducción a React para Frontend",
-    description:
-      "Aprende los conceptos básicos de React y cómo crear interfaces modernas.",
-    content:
-      "React es una biblioteca de JavaScript para construir interfaces de usuario...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["react", "frontend", "javascript"],
-    slug: "introduccion-a-react-frontend",
+    title: "Guía Completa de Frontend Moderno",
+    description: "Descubre las tecnologías y buenas prácticas para el desarrollo frontend en 2025.",
+    content: '# Guía Completa de Frontend Moderno\n\nEl desarrollo frontend ha evolucionado rápidamente. Hoy en día, frameworks como React, Vue y Svelte dominan el mercado, pero también es fundamental dominar HTML, CSS y JavaScript puro.\n\n## Consejos clave\n- Utiliza componentes reutilizables.\n- Aprovecha el tipado con TypeScript.\n- Aplica buenas prácticas de accesibilidad (a11y).\n\n## Ejemplo de componente React\n```jsx\nfunction Button({ children }) {\n  return <button className="btn">{children}</button>;\n}\n```\n\n¡No olvides optimizar el rendimiento y la experiencia de usuario!',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493153/codequest25/posts/post01_bbil2o.webp",
+    tags: ["frontend", "react", "vue", "svelte", "typescript"],
+    slug: "guia-frontend-moderno-2025",
     categories: [categoryNames[0], categoryNames[12]],
     userId: userIds[0],
   },
   {
-    title: "Construyendo APIs REST con Node.js",
-    description:
-      "Guía paso a paso para crear APIs robustas usando Node.js y Express.",
-    content: "Node.js permite crear servidores eficientes y escalables...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["nodejs", "backend", "api"],
-    slug: "construyendo-apis-rest-nodejs",
+    title: "API RESTful con Node.js y Express",
+    description: "Aprende a crear una API RESTful profesional usando Node.js y Express.",
+  content: '# API RESTful con Node.js y Express\n\nCrear una API RESTful es esencial para conectar el frontend y el backend. Express es el framework más popular para Node.js.\n\n## Pasos básicos\n1. Instala Express: `npm install express`\n2. Crea un archivo `index.js`:\n```js\nconst express = require("express");\nconst app = express();\napp.get("/", (req, res) => res.send("¡Hola Mundo!"));\napp.listen(3000);\n```\n\n## Buenas prácticas\n- Usa middlewares para validación y autenticación.\n- Documenta tu API con Swagger.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493153/codequest25/posts/post02_em8a4c.webp",
+    tags: ["backend", "api", "nodejs", "express"],
+    slug: "api-restful-node-express",
     categories: [categoryNames[1], categoryNames[20]],
     userId: userIds[1],
   },
   {
-    title: "Primeros pasos en Data Science con Python",
-    description:
-      "Descubre cómo empezar en el mundo de la ciencia de datos usando Python.",
-    content:
-      "La ciencia de datos combina estadística, programación y conocimiento del dominio...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["python", "data-science", "analisis"],
-    slug: "primeros-pasos-data-science-python",
-    categories: [categoryNames[4], categoryNames[19]],
+    title: "Introducción a DevOps: CI/CD con GitHub Actions",
+    description: "Automatiza tus despliegues y pruebas con pipelines modernos.",
+    content: '# Introducción a DevOps: CI/CD con GitHub Actions\n\nDevOps integra desarrollo y operaciones para entregar software de calidad rápidamente. GitHub Actions permite crear flujos de CI/CD fácilmente.\n\n## Ejemplo de workflow\n```yaml\nname: Node.js CI\non: [push]\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v2\n      - name: Instalar dependencias\n        run: npm install\n      - name: Ejecutar tests\n        run: npm test\n```\n\nAutomatiza pruebas, builds y despliegues para mayor eficiencia.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493154/codequest25/posts/post03_gj3ky1.webp",
+    tags: ["devops", "ci/cd", "github", "actions"],
+    slug: "introduccion-devops-cicd-github-actions",
+    categories: [categoryNames[3], categoryNames[10]],
     userId: userIds[2],
   },
   {
-    title: "Automatización de despliegues con Docker y DevOps",
-    description:
-      "Implementa pipelines de CI/CD usando Docker y prácticas DevOps.",
-    content: "La automatización es clave para el desarrollo moderno...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["docker", "devops", "ci/cd"],
-    slug: "automatizacion-despliegues-docker-devops",
-    categories: [categoryNames[3], categoryNames[10]],
+    title: "Data Science: Análisis Exploratorio con Python",
+    description: "Aprende a analizar datos y obtener insights usando Python y pandas.",
+  content: '# Data Science: Análisis Exploratorio con Python\n\nEl análisis exploratorio de datos (EDA) es el primer paso en cualquier proyecto de ciencia de datos.\n\n## Ejemplo básico con pandas\n```python\nimport pandas as pd\ndf = pd.read_csv("datos.csv")\nprint(df.describe())\n```\n\nVisualiza tus datos con matplotlib o seaborn para detectar patrones y anomalías.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493154/codequest25/posts/post04_cilafq.webp",
+    tags: ["data science", "python", "pandas", "eda"],
+    slug: "data-science-analisis-exploratorio-python",
+    categories: [categoryNames[4], categoryNames[19]],
     userId: userIds[3],
   },
   {
-    title: "Diseño de Arquitecturas de Microservicios",
-    description:
-      "Principios y patrones para diseñar sistemas basados en microservicios.",
-    content:
-      "Los microservicios permiten escalar y mantener aplicaciones complejas...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["arquitectura", "microservicios", "backend"],
-    slug: "diseno-arquitecturas-microservicios",
-    categories: [categoryNames[20], categoryNames[6]],
+    title: "Machine Learning: Primer Modelo de Clasificación",
+    description: "Construye tu primer modelo de clasificación con scikit-learn.",
+  content: '# Machine Learning: Primer Modelo de Clasificación\n\nScikit-learn es la librería más popular para machine learning en Python.\n\n## Ejemplo de clasificación\n```python\nfrom sklearn.datasets import load_iris\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\n\niris = load_iris()\nX_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target)\nclf = RandomForestClassifier()\nclf.fit(X_train, y_train)\nprint(clf.score(X_test, y_test))\n```\n\nExperimenta con diferentes algoritmos y parámetros.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493156/codequest25/posts/post05_qubsxy.webp",
+    tags: ["machine learning", "python", "scikit-learn", "clasificacion"],
+    slug: "machine-learning-primer-modelo-clasificacion",
+    categories: [categoryNames[5], categoryNames[4]],
     userId: userIds[4],
   },
   {
-    title: "Introducción a TypeScript",
-    description:
-      "Aprende los fundamentos de TypeScript y cómo tipar tu código JavaScript.",
-    content:
-      "TypeScript añade tipado estático a JavaScript, mejorando la mantenibilidad...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["typescript", "javascript", "tipado"],
-    slug: "introduccion-a-typescript",
-    categories: [categoryNames[2], categoryNames[5]],
+    title: "Arquitectura de Software: Principios SOLID",
+    description: "Mejora la mantenibilidad de tu código aplicando SOLID.",
+    content: '# Arquitectura de Software: Principios SOLID\n\nLos principios SOLID ayudan a escribir código más limpio y escalable:\n\n- **S**: Responsabilidad Única\n- **O**: Abierto/Cerrado\n- **L**: Sustitución de Liskov\n- **I**: Segregación de Interfaces\n- **D**: Inversión de Dependencias\n\n## Ejemplo en TypeScript\n```typescript\ninterface Notificador { enviar(mensaje: string): void; }\nclass Email implements Notificador {\n  enviar(mensaje: string) { /* ... */ }\n}\n```\n\nAplica estos principios en tus proyectos para facilitar el mantenimiento.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493156/codequest25/posts/post06_jw83ou.webp",
+    tags: ["arquitectura", "solid", "typescript", "software"],
+    slug: "arquitectura-software-principios-solid",
+    categories: [categoryNames[6], categoryNames[2]],
     userId: userIds[0],
   },
   {
-    title: "Desarrollo Web con Astro",
-    description:
-      "Crea sitios rápidos y modernos usando Astro y componentes de UI.",
-    content:
-      "Astro es un framework para construir sitios web rápidos y optimizados...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["astro", "web", "ssg"],
-    slug: "desarrollo-web-con-astro",
-    categories: [categoryNames[0], categoryNames[7]],
+    title: "Seguridad Web: Protege tus Aplicaciones",
+    description: "Consejos prácticos para mejorar la seguridad de tus proyectos web.",
+    content: '# Seguridad Web: Protege tus Aplicaciones\n\nLa seguridad es fundamental en cualquier aplicación. Algunos consejos:\n\n- Usa HTTPS siempre.\n- Valida y sanitiza la entrada del usuario.\n- Implementa autenticación y autorización robusta.\n\n## Ejemplo de validación en Express\n```js\napp.post("/login", (req, res) => {\n  if (!req.body.user || !req.body.password) {\n    return res.status(400).send("Datos incompletos");\n  }\n  // ...\n});\n```\n\nMantente actualizado sobre vulnerabilidades comunes (OWASP Top 10).',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493156/codequest25/posts/post07_utxhu8.webp",
+    tags: ["seguridad", "web", "owasp", "express"],
+    slug: "seguridad-web-protege-aplicaciones",
+    categories: [categoryNames[7], categoryNames[0]],
     userId: userIds[1],
   },
   {
-    title: "Fundamentos de Git y GitHub",
-    description: "Controla versiones y colabora usando Git y GitHub.",
-    content:
-      "Git es el sistema de control de versiones más usado en la industria...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["git", "github", "control de versiones"],
-    slug: "fundamentos-git-github",
+    title: "Desarrollo Móvil con Flutter",
+    description: "Crea apps móviles nativas para iOS y Android con Flutter.",
+    content: '# Desarrollo Móvil con Flutter\n\nFlutter permite crear aplicaciones móviles nativas con una sola base de código.\n\n## Ejemplo de widget básico\n```dart\nimport "package:flutter/material.dart";\n\nvoid main() => runApp(MyApp());\n\nclass MyApp extends StatelessWidget {\n  @override\n  Widget build(BuildContext context) {\n    return MaterialApp(\n      home: Scaffold(\n        body: Center(child: Text("¡Hola Flutter!")),\n      ),\n    );\n  }\n}\n```\n\nExplora los widgets y plugins disponibles para ampliar funcionalidades.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493157/codequest25/posts/post08_stto5z.webp",
+    tags: ["flutter", "movil", "android", "ios"],
+    slug: "desarrollo-movil-flutter",
     categories: [categoryNames[8], categoryNames[0]],
     userId: userIds[2],
   },
   {
-    title: "Testing de Aplicaciones Frontend",
-    description: "Aprende a testear tus componentes y vistas en React y Vue.",
-    content: "El testing es esencial para asegurar la calidad del software...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["testing", "frontend", "react", "vue"],
-    slug: "testing-aplicaciones-frontend",
-    categories: [categoryNames[0], categoryNames[9]],
+    title: "Bases de Datos Relacionales vs NoSQL",
+    description: "¿Cuándo elegir una base de datos relacional o NoSQL?",
+  content: '# Bases de Datos Relacionales vs NoSQL\n\nLa elección de la base de datos depende de las necesidades del proyecto.\n\n## Relacionales (SQL)\n- Estructura fija (tablas).\n- ACID.\n\n## NoSQL\n- Flexible (documentos, grafos, clave-valor).\n- Escalabilidad horizontal.\n\nEvalúa tus requerimientos antes de decidir.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493159/codequest25/posts/post09_lbsd7x.webp",
+    tags: ["bases de datos", "sql", "nosql"],
+    slug: "bases-datos-relacionales-vs-nosql",
+    categories: [categoryNames[9], categoryNames[1]],
     userId: userIds[3],
   },
   {
-    title: "Introducción a GraphQL",
-    description: "Descubre cómo usar GraphQL para APIs flexibles y eficientes.",
-    content:
-      "GraphQL es un lenguaje de consulta para APIs desarrollado por Facebook...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["graphql", "api", "backend"],
-    slug: "introduccion-a-graphql",
-    categories: [categoryNames[1], categoryNames[11]],
+    title: "Cloud Computing: Introducción a AWS",
+    description: "Conoce los servicios esenciales de AWS para desarrolladores.",
+  content: '# Cloud Computing: Introducción a AWS\n\nAmazon Web Services (AWS) es la plataforma cloud más utilizada.\n\n## Servicios clave\n- EC2: Servidores virtuales.\n- S3: Almacenamiento de objetos.\n- Lambda: Funciones serverless.\n\nAprende a desplegar y escalar aplicaciones en la nube.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493160/codequest25/posts/post10_egzisv.webp",
+    tags: ["cloud", "aws", "serverless"],
+    slug: "cloud-computing-introduccion-aws",
+    categories: [categoryNames[10], categoryNames[1]],
     userId: userIds[4],
   },
   {
-    title: "CSS Moderno con Tailwind",
-    description:
-      "Utiliza utilidades de Tailwind CSS para crear interfaces atractivas.",
-    content:
-      "Tailwind CSS es un framework de utilidades para construir interfaces rápidamente...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["css", "tailwind", "frontend"],
-    slug: "css-moderno-tailwind",
-    categories: [categoryNames[0], categoryNames[13]],
+    title: "Testing Efectivo en JavaScript",
+    description: "Aprende a escribir tests unitarios y de integración en JS.",
+    content: '# Testing Efectivo en JavaScript\n\nEl testing asegura la calidad y robustez del software.\n\n## Ejemplo con Jest\n```js\ntest("suma dos números", () => {\n  expect(1 + 2).toBe(3);\n});\n```\n\nAutomatiza tus pruebas y usa coverage para medir la efectividad.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493160/codequest25/posts/post11_uu0dcl.webp",
+    tags: ["testing", "javascript", "jest"],
+    slug: "testing-efectivo-javascript",
+    categories: [categoryNames[11], categoryNames[0]],
     userId: userIds[0],
   },
   {
-    title: "APIs REST vs GraphQL",
-    description: "Comparación entre APIs REST tradicionales y GraphQL.",
-    content: "REST y GraphQL son dos enfoques populares para construir APIs...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["api", "rest", "graphql"],
-    slug: "apis-rest-vs-graphql",
-    categories: [categoryNames[1], categoryNames[11]],
+    title: "UI/UX: Principios de Diseño Centrado en el Usuario",
+    description: "Mejora la experiencia de tus usuarios con estos principios clave.",
+  content: '# UI/UX: Principios de Diseño Centrado en el Usuario\n\nUn buen diseño UI/UX es esencial para el éxito de cualquier producto digital.\n\n- Simplicidad y claridad.\n- Consistencia visual.\n- Feedback inmediato.\n- Accesibilidad para todos.\n\nRealiza pruebas de usabilidad y escucha a tus usuarios.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493162/codequest25/posts/post12_lcexhg.webp",
+    tags: ["ui", "ux", "diseño", "usabilidad"],
+    slug: "ui-ux-principios-diseno-usuario",
+    categories: [categoryNames[12], categoryNames[0]],
     userId: userIds[1],
   },
   {
-    title: "Introducción a Next.js",
-    description: "Crea aplicaciones React con SSR y SSG usando Next.js.",
-    content:
-      "Next.js es un framework para React que permite renderizado del lado del servidor...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["nextjs", "react", "ssr"],
-    slug: "introduccion-a-nextjs",
-    categories: [categoryNames[0], categoryNames[7]],
+    title: "Gestión Ágil de Proyectos con Scrum",
+    description: "Implementa Scrum para mejorar la productividad de tu equipo.",
+  content: '# Gestión Ágil de Proyectos con Scrum\n\nScrum es el marco ágil más utilizado para la gestión de proyectos de software.\n\n## Roles principales\n- Product Owner\n- Scrum Master\n- Equipo de desarrollo\n\n## Ceremonias\n- Sprint Planning\n- Daily Scrum\n- Sprint Review\n- Retrospective\n\nAdapta Scrum a las necesidades de tu equipo para obtener mejores resultados.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493880/codequest25/posts/post13_ayreyc.webp",
+    tags: ["agile", "scrum", "project management"],
+    slug: "gestion-agil-proyectos-scrum",
+    categories: [categoryNames[13], categoryNames[14]],
     userId: userIds[2],
   },
   {
-    title: "Patrones de Arquitectura Frontend",
-    description: "Explora patrones comunes para organizar proyectos frontend.",
-    content:
-      "Los patrones de arquitectura ayudan a mantener el código escalable...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["arquitectura", "frontend", "patrones"],
-    slug: "patrones-arquitectura-frontend",
-    categories: [categoryNames[0], categoryNames[6]],
+    title: "Blockchain: Conceptos Básicos para Desarrolladores",
+    description: "Entiende cómo funciona blockchain y sus aplicaciones.",
+  content: '# Blockchain: Conceptos Básicos para Desarrolladores\n\nBlockchain es una tecnología de registro distribuido con múltiples aplicaciones.\n\n- Descentralización\n- Inmutabilidad\n- Contratos inteligentes\n\nExplora plataformas como Ethereum y aprende a crear smart contracts.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758493163/codequest25/posts/post14_ao1nfv.webp",
+    tags: ["blockchain", "ethereum", "smart contracts"],
+    slug: "blockchain-conceptos-basicos-desarrolladores",
+    categories: [categoryNames[15], categoryNames[1]],
     userId: userIds[3],
   },
   {
-    title: "Automatización con GitHub Actions",
-    description: "Configura flujos de CI/CD usando GitHub Actions.",
-    content:
-      "GitHub Actions permite automatizar tareas de desarrollo y despliegue...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["github", "ci/cd", "automatizacion"],
-    slug: "automatizacion-github-actions",
-    categories: [categoryNames[8], categoryNames[10]],
+    title: "Internet of Things (IoT): Primeros Pasos",
+    description: "Descubre cómo conectar dispositivos y crear soluciones IoT.",
+    content: '# Internet of Things (IoT): Primeros Pasos\n\nEl IoT conecta objetos físicos a internet para recopilar y compartir datos.\n\n## Ejemplo con Arduino\n```cpp\nvoid setup() {\n  Serial.begin(9600);\n}\nvoid loop() {\n  Serial.println("¡Hola IoT!");\n  delay(1000);\n}\n```\n\nExplora plataformas como Raspberry Pi y servicios cloud para IoT.',
+    image: "https://res.cloudinary.com/dlklqucye/image/upload/v1758494008/codequest25/posts/post15_ehtdav.webp",
+    tags: ["iot", "arduino", "raspberry pi"],
+    slug: "iot-primeros-pasos",
+    categories: [categoryNames[16], categoryNames[10]],
     userId: userIds[4],
-  },
-  {
-    title: "Introducción a Prisma ORM",
-    description: "Gestiona tu base de datos en Node.js con Prisma ORM.",
-    content: "Prisma es un ORM moderno para Node.js y TypeScript...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["prisma", "orm", "nodejs"],
-    slug: "introduccion-a-prisma-orm",
-    categories: [categoryNames[1], categoryNames[12]],
-    userId: userIds[0],
-  },
-  {
-    title: "Despliegue en Vercel y Netlify",
-    description:
-      "Publica tus proyectos JAMstack en Vercel y Netlify fácilmente.",
-    content:
-      "Vercel y Netlify son plataformas populares para desplegar sitios modernos...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["vercel", "netlify", "deploy"],
-    slug: "despliegue-vercel-netlify",
-    categories: [categoryNames[7], categoryNames[10]],
-    userId: userIds[1],
-  },
-  {
-    title: "Scraping Web con Python",
-    description:
-      "Extrae datos de la web usando librerías de scraping en Python.",
-    content:
-      "El scraping permite recolectar información de páginas web automáticamente...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["python", "scraping", "web"],
-    slug: "scraping-web-python",
-    categories: [categoryNames[4], categoryNames[19]],
-    userId: userIds[2],
-  },
-  {
-    title: "Introducción a Docker Compose",
-    description: "Orquesta múltiples contenedores con Docker Compose.",
-    content:
-      "Docker Compose facilita la gestión de entornos multi-contenedor...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["docker", "compose", "devops"],
-    slug: "introduccion-docker-compose",
-    categories: [categoryNames[3], categoryNames[10]],
-    userId: userIds[3],
-  },
-  {
-    title: "Optimización de Imágenes para Web",
-    description: "Mejora el rendimiento de tu sitio optimizando imágenes.",
-    content:
-      "La optimización de imágenes es clave para la velocidad de carga...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["imagenes", "web", "performance"],
-    slug: "optimizacion-imagenes-web",
-    categories: [categoryNames[7], categoryNames[13]],
-    userId: userIds[4],
-  },
-  {
-    title: "Introducción a Svelte",
-    description:
-      "Descubre el framework Svelte para construir interfaces reactivas.",
-    content:
-      "Svelte es un framework moderno que compila componentes a JavaScript eficiente...",
-    image:
-      "https://img.freepik.com/foto-gratis/codificacion-programas-informaticos-pantalla_53876-138060.jpg?semt=ais_incoming&w=740&q=80",
-    tags: ["svelte", "frontend", "javascript"],
-    slug: "introduccion-a-svelte",
-    categories: [categoryNames[0], categoryNames[7]],
-    userId: userIds[0],
   },
 ];

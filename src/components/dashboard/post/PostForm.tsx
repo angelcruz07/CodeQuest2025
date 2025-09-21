@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { Input } from "@components/forms/Input"; 
-import { actions } from 'astro:actions';
+import { Input } from "@components/forms/Input";
+import { actions } from "astro:actions";
 
 interface PostFormData {
   id?: string;
@@ -19,17 +19,17 @@ export default function PostForm() {
     watch,
     formState: { errors },
   } = useForm<PostFormData>();
+
   const onSubmit: SubmitHandler<PostFormData> = async (data) => {
-    console.log("llamando a la accion" + data);
     const formData = new FormData();
 
-    formData.append("title", data.title); 
+    formData.append("title", data.title);
     formData.append("content", data.content);
 
     if (data.image) {
       formData.append("image", data.image);
     }
-    
+
     formData.append("tags", data.tags);
     formData.append("slug", data.slug);
     formData.append("categories", data.categories);
