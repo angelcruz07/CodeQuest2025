@@ -1,6 +1,6 @@
-// import { User, Tag, Calendar, Eye, MessageSquare } from "lucide-react";
 import { type Post } from "@interfaces";
 import { dateFormat } from "@lib/date-format";
+import { actions } from "astro:actions";
 
 interface PropsBadge {
   className: string;
@@ -33,6 +33,33 @@ const Badge = ({ children, variant, className }: PropsBadge) => {
 };
 
 export const PostView = ({ post }: Props) => {
+  const onDelete = async (postId: string) => {
+    // ⚠️ Paso 1: Pedir confirmación al usuario
+    const confirmed = window.confirm(
+      "¿Estás seguro de que quieres eliminar este post? Esta acción es irreversible.",
+    );
+
+    // ⚠️ Paso 2: Si el usuario confirma, procede con la eliminación
+    if (confirmed) {
+      try {
+        const deletePost = await actions.post.deletePost({ id: postId });
+        // Opcional: Mostrar un mensaje de éxito o redirigir
+        if (deletePost) {
+          alert("Post eliminado con éxito.");
+          // Por ejemplo, recargar la página para que el post desaparezca
+          window.location.reload();
+        }
+      } catch (error) {
+        // Manejo de errores si la eliminación falla
+        console.error("Error al eliminar el post:", error);
+        alert("Ocurrió un error al intentar eliminar el post.");
+      }
+    } else {
+      // Si el usuario cancela, no se hace nada
+      alert("Eliminación cancelada.");
+    }
+  };
+
   return (
     <div className="bg-card border-secondary rounded-xl border shadow-sm transition-shadow duration-300 hover:shadow-md">
       <div className="p-6">
@@ -49,28 +76,46 @@ export const PostView = ({ post }: Props) => {
               />
             </div>
           )}
+
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <div className="mb-2 flex items-center gap-2">
-                  <h3 className="truncate text-lg font-semibold text-white">
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <a
+                    href={`/dashboard/posts/${post.slug}`}
+                    className="text-neutral truncate text-lg font-semibold"
+                  >
                     {post.title}
-                  </h3>
-                  {/* {post.featured && (
-                    <Badge
-                      variant="outline"
-                      className="border-indigo-600 text-indigo-600"
-                    >
-                      Destacado
-                    </Badge>
-                  )} */}
+                  </a>
+
+                  <p
+                    onClick={() => onDelete(post.id ?? "")}
+                    className="cursor-pointer hover:underline"
+                  >
+                    Eliminar
+                  </p>
                 </div>
-                <p className="mb-3 line-clamp-2 text-sm text-gray-500">
+                <p className="text-neutral mb-3 line-clamp-2 text-sm">
                   {post.description}
                 </p>
-                <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500">
+                <div className="text-neutral flex flex-wrap items-center gap-4 text-xs">
                   <div className="flex items-center gap-1">
-                    {/* <User class="h-3 w-3" /> */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      className="icon icon-tabler icons-tabler-outline icon-tabler-user"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+                      <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                    </svg>
                     {post.author.name}
                   </div>
                   <div className="flex items-center gap-1">
