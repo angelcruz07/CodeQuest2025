@@ -1,9 +1,17 @@
 ---
 import Heart from "@icons/heart.svg";
-import Text from "@components/text/Text.astro";
+import Text from "@components/text/Text.astro"; 
+import { actions } from "astro:actions";
+
 
 const { post } = Astro.props;
 const { user } = Astro.locals;
+
+const { data } = await Astro.callAction(actions.likes.getLikesByPostId, {
+  postId: post.id
+});
+
+const totalLikes =  data?.count ?? 0;
 ---
 
 <div class="mt-10 flex justify-between">
@@ -11,7 +19,7 @@ const { user } = Astro.locals;
     <Text>Me gustas</Text>
     <div class="mt-3 flex gap-x-2 text-white">
       <Heart class="text-white" />
-      {post.likes ?? 0}
+      {totalLikes}
     </div>
   </div>
 
@@ -32,7 +40,7 @@ const { user } = Astro.locals;
 
   const likeButton = $("#like-button");
   const userId = likeButton?.dataset.userId;
-  const postId = likeButton?.dataset.postId;
+  const postId = likeButton!.dataset.postId;
 
   likeButton?.addEventListener("click", async () => {
     if (!userId) {

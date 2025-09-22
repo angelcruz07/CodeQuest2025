@@ -3,7 +3,6 @@ import { z } from "astro:schema";
 import prisma from "@lib/prisma";
 
 export const getLikesByPostId = defineAction({ 
-    accept: "form", 
     input: z.object({
         postId: z.string(),
     }),
