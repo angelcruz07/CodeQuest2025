@@ -2,21 +2,22 @@ import prisma from "@/lib/prisma";
 import { z } from "astro:schema";
 import { ActionError, defineAction } from "astro:actions";
 
-export const toggleLike = defineAction({
-  accept: "form",
+export const createUpdateLikeByPost = defineAction({
   input: z.object({
     postId: z.string(),
+    userId: z.string(),
   }),
-  handler: async ({ postId }, { locals }) => {
+  handler: async ({ postId, userId }) => {
     // 1. Obtener el ID del usuario de la sesión.
     // Asume que la información de la sesión se almacena en `Astro.locals`
-    const userId = locals.user?.id;
-    if (!userId) {
-      throw new ActionError({
-        code: "UNAUTHORIZED",
-        message: "Debes iniciar sesión para dar 'Me gusta'.",
-      });
-    }
+
+    // const userId = locals.user?.id;
+    // if (!userId) {
+    //   throw new ActionError({
+    //     code: "UNAUTHORIZED",
+    //     message: "Debes iniciar sesión para dar 'Me gusta'.",
+    //   });
+    // }
 
     try {
       // 2. Buscar si el "like" ya existe para este usuario y post.
@@ -48,6 +49,7 @@ export const toggleLike = defineAction({
             postId,
           },
         });
+
         return { success: true, action: "liked", postId };
       }
     } catch (e) {
@@ -58,4 +60,3 @@ export const toggleLike = defineAction({
     }
   },
 });
-

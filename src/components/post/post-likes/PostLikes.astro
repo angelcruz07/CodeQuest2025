@@ -40,9 +40,13 @@ const { user } = Astro.locals;
       return;
     }
 
-    const { error } = await actions.likes.createUpdateLike(postId);
-    console.log(error);
+    console.log("Dando 'Me gusta' al post con ID:", postId, userId);
 
-    console.log("like");
+    const { error, data } = await actions.likes.createUpdateLikeByPost({
+      postId,
+      userId,
+    });
+
+    console.log(error, data);
   });
 </script>
