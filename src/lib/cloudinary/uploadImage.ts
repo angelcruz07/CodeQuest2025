@@ -24,7 +24,7 @@ export async function uploadImages(images: File[] | File) {
         const res = await cloudinary.uploader.upload(
           `data:${mimeType};base64,${base64File}`,
           {
-            folder: "iett",
+            folder: "codequest25",
             resource_type: "auto",
           },
         );

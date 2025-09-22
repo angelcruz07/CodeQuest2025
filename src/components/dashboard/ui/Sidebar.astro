@@ -13,11 +13,10 @@ const sidebarItems = [
 ---
 
 <aside
-  class="flex h-screen w-64 flex-col border-r"
-  style="background: var(--color-primary); border-color: var(--color-accent);"
+  class="bg-primary border-secondary/50 fixed left-0 flex h-screen w-80 flex-col border-r"
 >
   <!-- Logo Section -->
-  <div class="border-b p-6" style="border-color: var(--color-accent);">
+  <div class="border-secondary border-b p-6">
     <div class="flex items-center gap-3">
       <div class="relative h-10 w-10">
         <img
@@ -27,14 +26,8 @@ const sidebarItems = [
         />
       </div>
       <div>
-        <h1 class="font-mono text-lg font-bold text-[var(--color-neutral)]">
-          Admin Panel
-        </h1>
-        <p
-          class="text-sm text-[color-mix(in_srgb,var(--color-neutral)_70%,transparent)]"
-        >
-          Post Management
-        </p>
+        <h1 class="text-neutral font-mono text-lg font-bold">Admin Panel</h1>
+        <p class="text-neutral text-sm">Post Management</p>
       </div>
     </div>
   </div>
