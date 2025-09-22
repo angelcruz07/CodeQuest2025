@@ -51,7 +51,7 @@ model Post {
   title String
   description String
   content String
-  likes Int @default(0)
+  likes Like[]
   image String
   tags String[]
   slug String @unique
@@ -62,8 +62,21 @@ model Post {
   author User @relation("UserPosts", fields: [userId], references: [id])
   categories Category[] @relation("PostCategories")
   comments Comment[]
+
   @@map("post")
   @@index([slug])
+}
+
+model Like {
+  id        String    @id @default(uuid())
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  post      Post      @relation(fields: [postId], references: [id])
+  postId    String
+
+  @@unique([userId, postId])
+
+  @@map("like")
 }
 
 model User {
@@ -83,7 +96,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
   posts         Post[]    @relation("UserPosts")
-  comments      Comment[] 
+  comments      Comment[]
+  likes         Like[]
 
   @@unique([email])
   @@map("user")

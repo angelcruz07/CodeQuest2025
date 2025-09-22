@@ -3,6 +3,7 @@ import Heart from "@icons/heart.svg";
 import Text from "@components/text/Text.astro";
 
 const { post } = Astro.props;
+const { user } = Astro.locals;
 ---
 
 <div class="mt-10 flex justify-between">
@@ -17,6 +18,8 @@ const { post } = Astro.props;
   <Text
     id="like-button"
     className="border-secondary flex cursor-pointer gap-2 rounded-md border p-5"
+    data-user-id={user?.id}
+    data-post-id={post.id}
   >
     <Heart class="text-white" />
     Me gusta
@@ -28,6 +31,22 @@ const { post } = Astro.props;
   import { actions } from "astro:actions";
 
   const likeButton = $("#like-button");
+  const userId = likeButton?.dataset.userId;
+  const postId = likeButton?.dataset.postId;
 
-  likeButton?.addEventListener("click", async () => {});
+  likeButton?.addEventListener("click", async () => {
+    if (!userId) {
+      alert("Debes iniciar sesión para dar 'Me gusta'.");
+      return;
+    }
+
+    console.log("Dando 'Me gusta' al post con ID:", postId, userId);
+
+    const { error, data } = await actions.likes.createUpdateLikeByPost({
+      postId,
+      userId,
+    });
+
+    console.log(error, data);
+  });
 </script>
