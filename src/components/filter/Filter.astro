@@ -1,5 +1,6 @@
 ---
 import { actions } from 'astro:actions'
+import DeleteFilter from '../../icons/blog/trash.svg'
 
 const searchParams = Astro.url.searchParams
 const currentCategory = searchParams.get('category') || ''
@@ -71,13 +72,15 @@ if (!categories || !tags) {
     </div>
   </div>
 
-  <div class='flex min-w-48 items-end'>
+  <div class='flex items-end'>
     <button
       type='button'
       id='clearFilters'
-      class='bg-accent/80 border-accent-hover focus:border-accent hover:bg-accent w-full rounded-md border p-3 text-white transition-colors focus:outline-none'
+      class='bg-accent/80 border-accent-hover focus:border-accent flex h-12 w-12 items-center justify-center rounded-md border text-white transition-colors hover:border-red-400 hover:bg-red-500 focus:outline-none'
+      title='Limpiar filtros'
+      aria-label='Limpiar filtros'
     >
-      Limpiar
+      <DeleteFilter class='h-5 w-5' />
     </button>
   </div>
 </div>
