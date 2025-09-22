@@ -1,5 +1,5 @@
 import { createUpdateLike } from "./createUpdateLikeByPost.action";
 
-export const likes = { 
-    createUpdateLike,
+export const likes = {
+  createUpdateLike,
 };
