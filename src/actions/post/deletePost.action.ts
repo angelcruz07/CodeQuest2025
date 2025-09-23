@@ -1,7 +1,7 @@
 import { z } from "astro:schema";
 import prisma from "@lib/prisma";
 import { ActionError, defineAction } from "astro:actions";
-import { deleteImage } from "@lib/cloudinary/deleteImage";
+import { ImageUpload } from "@utils/image-upload";
 
 export const deletePost = defineAction({
   input: z.object({
@@ -21,15 +21,8 @@ export const deletePost = defineAction({
       }
 
       //Elimina la foto de cloudinary
-      if (post.image) {
-        if (Array.isArray(post.image)) {
-          for (const imgUrl of post.image) {
-            if (imgUrl) await deleteImage(imgUrl);
-          }
-        } else if (typeof post.image === "string") {
-          await deleteImage(post.image);
-        }
-      }
+      if (post.image && post.image.includes("http"))
+        await ImageUpload.delete(post.image);
 
       //Elimina la foto de la base de datos
       const deletedPost = await prisma.post.delete({
