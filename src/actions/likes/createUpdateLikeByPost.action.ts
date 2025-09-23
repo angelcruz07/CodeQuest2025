@@ -5,19 +5,15 @@ import { ActionError, defineAction } from "astro:actions";
 export const createUpdateLikeByPost = defineAction({
   input: z.object({
     postId: z.string(),
-    userId: z.string(),
   }),
-  handler: async ({ postId, userId }) => {
-    // 1. Obtener el ID del usuario de la sesión.
-    // Asume que la información de la sesión se almacena en `Astro.locals`
-
-    // const userId = locals.user?.id;
-    // if (!userId) {
-    //   throw new ActionError({
-    //     code: "UNAUTHORIZED",
-    //     message: "Debes iniciar sesión para dar 'Me gusta'.",
-    //   });
-    // }
+  handler: async ({ postId }, { locals }) => {
+    const userId = locals.user?.id;
+    if (!userId) {
+      throw new ActionError({
+        code: "UNAUTHORIZED",
+        message: "User must be authenticated to like a post.",
+      });
+    }
 
     try {
       // 2. Buscar si el "like" ya existe para este usuario y post.
@@ -55,7 +51,7 @@ export const createUpdateLikeByPost = defineAction({
     } catch (e) {
       throw new ActionError({
         code: "INTERNAL_SERVER_ERROR",
-        message: `Error al procesar el like: ${e instanceof Error ? e.message : String(e)}`,
+        message: `Error processing like action`,
       });
     }
   },

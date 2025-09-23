@@ -2,7 +2,7 @@
 import Heading from "../heading/Heading.astro";
 import Text from "../text/Text.astro";
 import PostContent from "./post-content/PostContent.astro";
-import PostLikes from "./post-likes/PostLikes.astro";
+import { PostLikes } from "./post-likes/PostLikes";
 
 import Calendar from "@icons/calendar.svg";
 import User from "@icons/user.svg";
@@ -19,6 +19,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const { user } = Astro.locals;
 ---
 
 <div class="flex items-center justify-center p-5 md:p-10">
@@ -58,7 +59,7 @@ const { post } = Astro.props;
     />
 
     <PostContent content={post.content} />
-    <PostLikes {post} />
+    <PostLikes postId={post.id ?? ""} user={user} client:load />
     <CommentsView postId={post.id} />
   </section>
 </div>
