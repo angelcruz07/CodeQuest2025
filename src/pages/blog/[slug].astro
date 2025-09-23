@@ -19,5 +19,15 @@ if (!post) {
 ---
 
 <Layout title={`${post.title}`} description={post.description}>
-  <Post post={post} />
+  <Post
+    post={{
+      ...post,
+      image:
+        typeof post.image === "string"
+          ? post.image
+          : post.image === null
+            ? ""
+            : String(post.image),
+    }}
+  />
 </Layout>

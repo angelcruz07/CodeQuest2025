@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { actions } from "astro:actions";
 
 interface CommentFormProps {
-  comment: string;
+  content: string;
+  postId: string;
 }
 
 interface Props {
@@ -18,24 +19,29 @@ export const CommentForm = ({ postId, userId }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<CommentFormProps>();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: CommentFormProps) => {
     const formData = new FormData();
 
-    formData.append("content", data.comment);
+    formData.append("content", data.content);
     formData.append("userId", userId);
     formData.append("postId", postId);
 
-    console.log("Data del comentario: ", formData);
+    const { error } = await actions.comment.createUpdateComment(formData);
 
-    const newComment = await actions.comment.createUpdateComment(formData);
+    if (!error) {
+      window.location.reload();
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex gap-x-5">
-      <Input name="content" register={register} />
-      <button type="submit" className="bg-secondary w-full rounded-md">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex justify-between gap-x-5"
+    >
+      <Input className="w-full" name="content" register={register} />
+      <button type="submit" className="bg-secondary w-20 rounded-md text-white">
         Enviar
       </button>
     </form>
