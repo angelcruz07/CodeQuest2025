@@ -98,7 +98,7 @@ bun run dev
 
 Visit [http://localhost:3000](http://localhost:3000/) to see DevBlog in action.
 
-### 8. Set up admin access (Optional)
+### 8. Set up admin access
 
 To access the dashboard and admin features:
 
