@@ -33,7 +33,7 @@ function isValidPost(obj: any): obj is Post {
   return obj && typeof obj.id === "string" && typeof obj.title === "string";
 }
 
-const title = slug === "new" ? "Nuevo Producto" : "Editar Producto";
+const title = slug === "new" ? "Nuevo Post" : "Editar Post";
 ---
 
 <DashboardLayout title={title}>
