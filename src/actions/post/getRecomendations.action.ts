@@ -1,7 +1,6 @@
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro:schema";
 import prisma from "@lib/prisma";
-import { uploadImages } from "@lib/cloudinary/uploadImage";
 import type { PostWithRelations } from "./getPostsByPage.action";
 
 export const getRecommendedPosts = defineAction({
@@ -25,7 +24,7 @@ export const getRecommendedPosts = defineAction({
         });
       }
 
-      const categoryIds = currentPost.categories.map(cat => cat.id);
+      const categoryIds = currentPost.categories.map((cat) => cat.id);
       const postTags = currentPost.tags || [];
 
       let recommendedPosts: PostWithRelations[] = [];
@@ -53,8 +52,8 @@ export const getRecommendedPosts = defineAction({
 
       if (recommendedPosts.length < limit && postTags.length > 0) {
         const remaining = limit - recommendedPosts.length;
-        const existingIds = recommendedPosts.map(p => p.id);
-        
+        const existingIds = recommendedPosts.map((p) => p.id);
+
         const tagMatches = await prisma.post.findMany({
           where: {
             AND: [
@@ -77,8 +76,8 @@ export const getRecommendedPosts = defineAction({
 
       if (recommendedPosts.length < limit && categoryIds.length > 0) {
         const remaining = limit - recommendedPosts.length;
-        const existingIds = recommendedPosts.map(p => p.id);
-        
+        const existingIds = recommendedPosts.map((p) => p.id);
+
         const categoryMatches = await prisma.post.findMany({
           where: {
             AND: [
@@ -101,8 +100,8 @@ export const getRecommendedPosts = defineAction({
 
       if (recommendedPosts.length < limit) {
         const remaining = limit - recommendedPosts.length;
-        const existingIds = recommendedPosts.map(p => p.id);
-        
+        const existingIds = recommendedPosts.map((p) => p.id);
+
         const recentPosts = await prisma.post.findMany({
           where: {
             AND: [
