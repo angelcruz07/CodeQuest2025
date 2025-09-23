@@ -1,5 +1,8 @@
-import { createUpdateLike } from "./createUpdateLikeByPost.action";
+import { createUpdateLikeByPost } from "./createUpdateLikeByPost.action";
+import { getLikesByPostId } from "./getLikesByPostId.action";
 
-export const likes = { 
-    createUpdateLike,
+export const likes = {
+  createUpdateLikeByPost,
+  getLikesByPostId
 };
+

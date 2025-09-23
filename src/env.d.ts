@@ -1,12 +1,6 @@
 /// <reference path="../.astro/actions.d.ts" />
 /// <reference types="astro/client" />
-
-interface User {
-  name: string;
-  image: string | null;
-  email: string;
-  role: string;
-}
+/// <reference path="./interfaces/user.interface.ts" />
 
 declare namespace App {
   interface Locals {

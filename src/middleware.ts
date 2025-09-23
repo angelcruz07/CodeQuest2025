@@ -31,6 +31,7 @@ export const onRequest = defineMiddleware(
 
     if (user) {
       locals.user = {
+        id: user.id,
         email: user.email!,
         image: user.image ?? null,
         name: user.name ?? "",

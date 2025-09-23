@@ -11,7 +11,6 @@ async function main() {
     await prisma.user.createMany({ data: users });
 
     await prisma.post.deleteMany();
-
     await prisma.post.createMany({
         data: posts.map(({ categories, ...rest }) => rest)
     });

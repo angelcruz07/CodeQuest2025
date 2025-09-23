@@ -2,7 +2,7 @@
 import Heading from "../heading/Heading.astro";
 import Text from "../text/Text.astro";
 import PostContent from "./post-content/PostContent.astro";
-import PostLikes from "./post-likes/PostLikes.astro";
+import { PostLikes } from "./post-likes/PostLikes";
 
 import Calendar from "@icons/calendar.svg";
 import User from "@icons/user.svg";
@@ -12,13 +12,15 @@ import { type Post } from "@interfaces";
 import CommentsView from "@components/comments/CommentsView.astro";
 import { Image } from "astro:assets";
 
-import { dateFormat } from "@lib/date-format";
+import { dateFormat } from "@utils/date-format";
+import PostRecomended from "./post-recomended/PostRecomended.astro";
 
 interface Props {
   post: Post;
 }
 
 const { post } = Astro.props;
+const { user } = Astro.locals;
 ---
 
 <div class="flex items-center justify-center p-5 md:p-10">
@@ -28,7 +30,6 @@ const { post } = Astro.props;
     </Heading>
 
     <article class="mt-10 flex flex-wrap gap-5">
-      <!-- Date -->
       <div class="flex items-center gap-2 text-sm">
         <Calendar class="h-4 w-4 text-white" />
         <Text component="span">
@@ -36,13 +37,11 @@ const { post } = Astro.props;
         </Text>
       </div>
 
-      <!-- Author -->
       <div class="flex items-center gap-2 text-sm">
         <User class="h-4 w-4 text-white" />
         <Text component="span">{post.author.name}</Text>
       </div>
 
-      <!-- Category -->
       <div class="flex items-center gap-2 text-sm">
         <Folder class="h-4 w-4 text-white" />
         {post.categories.map((category) => <Text>{category.name} -</Text>)}
@@ -52,13 +51,14 @@ const { post } = Astro.props;
     <Image
       width={200}
       height={400}
-      class="mt-10 h-40 w-auto w-full rounded-xl object-cover md:h-96"
+      class="mt-10 h-40 w-auto rounded-xl object-cover md:h-96"
       src={post.image}
       alt={post.description}
     />
 
     <PostContent content={post.content} />
-    <PostLikes {post} />
+    <PostLikes postId={post.id ?? ""} user={user} client:load />
     <CommentsView postId={post.id} />
+    <PostRecomended postId={post.id} />
   </section>
 </div>
