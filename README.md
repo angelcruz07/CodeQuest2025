@@ -45,7 +45,7 @@
 
 # 🎨 Live Preview
 
-Curious? Explore the live site: https://codequest2025.vercel.app/
+Curious? Explore the live site: <https://codequest2025.vercel.app/>
 
 # 🚀 Getting Started for local environment
 
@@ -103,15 +103,45 @@ bunx prisma migrate dev
 bun seed
 ```
 
-### 7. Start the development server
+### 7. Cloudinary Setup
+
+Devtalles team you can use out cloudinary credentials
+there are in our discord channel #code-verse.
+
+If you prefer to use your own account, you can create a free account
+and create a foldeer named `codequest25/posts` to store the images.
+
+> [!IMPORTANT]
+> If you use your own account, no forget create the folder "codequest25/posts"
+
+### 8. Discord Auth Setup
+
+Devtalles team you can use out discord credentials
+there are in our discord channel #code-verse.
+
+If you prefer to use your own account, follow these steps:
+create a new application in the Discord Developer Portal, and add the following URL to the OAuth2 Redirects:
+
+```bash
+# For local development
+http://localhost:4321/api/auth/callback/discord
+
+# Production
+https://yourdomain.com/api/auth/callback/discord
+```
+
+### 9. Start the development server
 
 ```bash
 bun dev
 ```
 
-Visit [http://localhost:4321](http://localhost:4321/) to see DevBlog in action.
+Visit [http://localhost:4321](http://localhost:4321/) to see DevTalles Community Blog in action.
 
 ### 8. Set up admin access
+
+> [!NOTE]
+> This step is optional and only required if you want to access admin features.
 
 To access the dashboard and admin features:
 
