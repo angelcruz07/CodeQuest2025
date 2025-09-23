@@ -13,6 +13,7 @@ import CommentsView from "@components/comments/CommentsView.astro";
 import { Image } from "astro:assets";
 
 import { dateFormat } from "@utils/date-format";
+import PostRecomended from "./post-recomended/PostRecomended.astro";
 
 interface Props {
   post: Post;
@@ -29,7 +30,6 @@ const { user } = Astro.locals;
     </Heading>
 
     <article class="mt-10 flex flex-wrap gap-5">
-      <!-- Date -->
       <div class="flex items-center gap-2 text-sm">
         <Calendar class="h-4 w-4 text-white" />
         <Text component="span">
@@ -37,13 +37,11 @@ const { user } = Astro.locals;
         </Text>
       </div>
 
-      <!-- Author -->
       <div class="flex items-center gap-2 text-sm">
         <User class="h-4 w-4 text-white" />
         <Text component="span">{post.author.name}</Text>
       </div>
 
-      <!-- Category -->
       <div class="flex items-center gap-2 text-sm">
         <Folder class="h-4 w-4 text-white" />
         {post.categories.map((category) => <Text>{category.name} -</Text>)}
@@ -61,5 +59,6 @@ const { user } = Astro.locals;
     <PostContent content={post.content} />
     <PostLikes postId={post.id ?? ""} user={user} client:load />
     <CommentsView postId={post.id} />
+    <PostRecomended postId={post.id} />
   </section>
 </div>
