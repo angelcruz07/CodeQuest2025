@@ -10,7 +10,7 @@
 </div>
 
 <div align="center">
-  <img alt="Next.js Badge" src="https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=fff&style=flat" />
+  <img alt="Astro Badge" src="https://img.shields.io/badge/Astro-FF5D01?logo=astro&logoColor=fff&style=flat" />
   <img alt="Tailwind CSS Badge" src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat" />
   <img alt="TypeScript Badge" src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=flat" />
   <img alt="PostgreSQL Badge" src="https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=fff&style=flat" />
@@ -29,10 +29,12 @@
 
 # 🛠️ Tech Stack
 
-- [**Typescript**](https://www.typescriptlang.org/) - JavaScript with syntax for types.
-- [**Postgress**](https://www.postgresql.org/) - Systems of manager for object-relational database.
+- [**Astro**](https://astro.build/) - Modern static site generator for faster websites.
+- [**TypeScript**](https://www.typescriptlang.org/) - JavaScript with syntax for types.
+- [**PostgreSQL**](https://www.postgresql.org/) - Systems of manager for object-relational database.
 - [**Tailwind**](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs.
 - **Prisma** – Modern ORM for type-safe database access
+- **Better Auth** – Secure authentication and user management
 - **Bun** – Fast JavaScript runtime and package manager
 - [**Tabler Icons**](https://tabler.io/) - A collection of icons used.
 
@@ -95,6 +97,27 @@ bun run dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000/) to see DevBlog in action.
+
+### 8. Set up admin access (Optional)
+
+To access the dashboard and admin features:
+
+1. **Create a user account** by registering through the application
+2. **Ensure Docker container is running** (from step 4)
+3. **Connect to the database** using a database client like:
+   - [TablePlus](https://tableplus.com/)
+   - [DBeaver](https://dbeaver.io/)
+   - [pgAdmin](https://www.pgadmin.org/)
+   - Or any PostgreSQL client of your choice
+
+4. **Update user role**:
+   - Connect to your PostgreSQL database
+   - Navigate to the `User` table
+   - Find your user record
+   - Change the `role` field from `user` to `admin`
+   - Save the changes
+
+5. **Refresh the application** and log in to access admin features
 
 Happy coding! 🚀
 
