@@ -52,7 +52,7 @@ if (!isAuthed) return Astro.redirect("/auth/sign-in");
 </Layout>
 
 <script>
-  import { $ } from "@lib/dom-selector";
+  import { $ } from "@utils/dom-selector";
   import { signOut } from "@lib/auth/auth-client";
 
   const logoutButton = $("#btn-logout");
