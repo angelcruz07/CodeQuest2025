@@ -4,6 +4,7 @@ import { getCategories } from "./getCategories.action";
 import { getPostBySlug } from "./getPostBySlug.action";
 import { getPosts } from "./getPosts.action";
 import { getPostsByPage } from "./getPostsByPage.action";
+import { getRecommendedPosts } from "./getRecomendations.action";
 import { getTags } from "./getTags.action";
 
 export const post = {
@@ -13,5 +14,6 @@ export const post = {
   getPostsByPage,
   getPosts,
   getTags,
-  getCategories
+  getCategories,
+  getRecommendedPosts
 };

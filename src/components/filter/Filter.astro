@@ -17,7 +17,7 @@ if (!categories || !tags) {
 }
 ---
 
-<div class='flex flex-row gap-4'>
+<div class='flex flex-col-reverse gap-4 md:flex-row'>
   <div class='min-w-56 flex-1'>
     <select
       id='category'
@@ -76,7 +76,7 @@ if (!categories || !tags) {
     <button
       type='button'
       id='clearFilters'
-      class='bg-accent/80 border-accent-hover focus:border-accent flex h-12 w-12 items-center justify-center rounded-md border text-white transition-colors hover:border-red-400 hover:bg-red-500 focus:outline-none'
+      class='bg-accent/80 border-accent-hover focus:border-accent flex h-12 w-full items-center justify-center rounded-md border text-white transition-colors hover:border-red-400 hover:bg-red-500 focus:outline-none md:w-12'
       title='Limpiar filtros'
       aria-label='Limpiar filtros'
     >

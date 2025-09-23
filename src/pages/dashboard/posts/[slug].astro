@@ -16,7 +16,7 @@ const { data } = await Astro.callAction(actions.category.getCategories, {})
 if (!data) return Astro.redirect('/dashboard/posts')
 
 const { data: post } = await Astro.callAction(actions.post.getPostBySlug, {
-  slug: slug.trim(),
+  slug: slug?.trim() || '',
 })
 
 const categories = data.map((category) => ({
