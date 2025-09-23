@@ -52,7 +52,7 @@ model Post {
   description String
   content String
   likes Like[]
-  image String
+  image String?
   tags String[]
   slug String @unique
   updatedAt DateTime @updatedAt

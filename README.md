@@ -4,7 +4,7 @@
   <h1>Code Quest 25</h1>
 
   <p>DevTalles Community Blog</p>
-  <a href="https://" target="_blank">Live Preview</a>
+  <a href="https://codequest2025.vercel.app/" target="_blank">Live Preview</a>
   <span>&nbsp;•&nbsp;</span>
   <a href="#getting-started">Getting Started</a>
 </div>
@@ -24,7 +24,12 @@
 ## Features
 
 - 🛒 Full-featured blog
-- 🔒 Secure authentication and user management
+- 🔒 Secure authentication with Discord
+- CRUD for post
+- Upload Imaages to cloudinary
+- Filter by query, category, tag
+- Recommend Post
+- Like and comments
 - ⚡ Fast, responsive UI with Tailwind CSS
 
 # 🛠️ Tech Stack
@@ -40,9 +45,9 @@
 
 # 🎨 Live Preview
 
-Curious? Explore the live site:
+Curious? Explore the live site: <https://codequest2025.vercel.app/>
 
-# 🚀 Getting Started
+# 🚀 Getting Started for local environment
 
 Set up the project locally in a few simple steps:
 
@@ -59,20 +64,28 @@ cd CodeQuest2025
 > _We use [bun](https://bun.sh) for blazing-fast installs._
 
 ```bash
-bun install
+bun i
 ```
 
 ### 3. Configure environment variables
 
 Copy the template and fill in your secrets:
 
+> [!IMPORTANT]
+> You need Discord credentials, and Cloudinary Credentials
+> for running this project
+
 ```bash
 cp .env.template .env
 ```
 
+> [!WARNING]
+> Check if your credentials already exist
+
 ### 4. Start the database
 
-> _Docker is required for local database setup._
+> [!NOTE]
+> Docker is required for local database setup.
 
 ```bash
 docker compose up -d
@@ -87,16 +100,67 @@ bunx prisma migrate dev
 ### 6. Seed the database
 
 ```bash
-bun run seed
+bun seed
 ```
 
-### 7. Start the development server
+### 7. Cloudinary Setup
+
+Devtalles team you can use out cloudinary credentials
+there are in our discord channel #code-verse.
+
+If you prefer to use your own account, you can create a free account
+and create a foldeer named `codequest25/posts` to store the images.
+
+> [!IMPORTANT]
+> If you use your own account, no forget create the folder "codequest25/posts"
+
+### 8. Discord Auth Setup
+
+Devtalles team you can use out discord credentials
+there are in our discord channel #code-verse.
+
+If you prefer to use your own account, follow these steps:
+create a new application in the Discord Developer Portal, and add the following URL to the OAuth2 Redirects:
 
 ```bash
-bun run dev
+# For local development
+http://localhost:4321/api/auth/callback/discord
+
+# Production
+https://yourdomain.com/api/auth/callback/discord
 ```
 
-Visit [http://localhost:3000](http://localhost:3000/) to see DevBlog in action.
+### 9. Start the development server
+
+```bash
+bun dev
+```
+
+Visit [http://localhost:4321](http://localhost:4321/) to see DevTalles Community Blog in action.
+
+### 8. Set up admin access
+
+> [!NOTE]
+> This step is optional and only required if you want to access admin features.
+
+To access the dashboard and admin features:
+
+1. **Create a user account** by registering through the application
+2. **Ensure Docker container is running** (from step 4)
+3. **Connect to the database** using a database client like:
+   - [TablePlus](https://tableplus.com/)
+   - [DBeaver](https://dbeaver.io/)
+   - [pgAdmin](https://www.pgadmin.org/)
+   - Or any PostgreSQL client of your choice
+
+4. **Update user role**:
+   - Connect to your PostgreSQL database
+   - Navigate to the `User` table
+   - Find your user record
+   - Change the `role` field from `user` to `admin`
+   - Save the changes
+
+5. **Refresh the application** and log in to access admin features
 
 ### 8. Set up admin access
 
@@ -125,5 +189,4 @@ Happy coding! 🚀
 
 - [Angel - Frontend](https://github.com/angelcruz07)
 - [Lizandro - Backend](https://github.com/LizandroBackEnd)
-- [Ezequiel - Backend](https://github.com/erzequielastrada)
 - [Arif - Frontend](https://github.com/Ariff-dev)

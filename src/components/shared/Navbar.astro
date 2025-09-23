@@ -1,10 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import Link from "../link/Link.astro";
-import Text from "../text/Text.astro";
 import X from "@icons/x.svg";
 import Menu from "@icons/menu.svg";
-import Button from "../button/Button.astro";
 import { ROUTES_NAV } from "@const";
 import AuthButtonNav from "@components/auth/AuthButtonNav.astro";
 
@@ -83,7 +81,7 @@ const { user } = Astro.locals;
 </dialog>
 
 <script>
-  import { $ } from "@lib/dom-selector";
+  import { $ } from "@utils/dom-selector";
   const mobileMenu = $("#mobile-menu") as HTMLDialogElement;
   const openMenuButton = $("#open-menu-button");
   const closeMenuButton = $("#close-menu-button");

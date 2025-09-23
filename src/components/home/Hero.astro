@@ -12,18 +12,18 @@ import Link from "@components/link/Link.astro";
 <section class="flex items-center overflow-hidden py-10 md:h-screen lg:py-20">
   <div class="grid place-items-center gap-12 lg:grid-cols-2">
     <div class="space-y-8">
-      <div class="fade-in-up space-y-4">
+      <div class="fade-in-up space-y-10">
         <Heading fontSize="large" color="accent">
           Código, Innovación y <span class="text-secondary">Desarrollo</span>
         </Heading>
 
-        <Text>
+        <Text className="text-neutral">
           Tu blog de programación donde exploramos las últimas tecnologías,
           mejores prácticas y tendencias del desarrollo de software.
         </Text>
       </div>
 
-      <div class="slide-in-left stagger-2 flex flex-col gap-4 sm:flex-row">
+      <div class="slide-in-left stagger-2 flex flex-col gap-4 p-1 sm:flex-row">
         <Link href="/blog">
           <Button variant="primary" className="flex items-center">
             Explorar Últimos Posts
@@ -33,7 +33,9 @@ import Link from "@components/link/Link.astro";
           </Button>
         </Link>
 
-        <Button variant="outline"> Ver Categorías </Button>
+        <Link href="#categories">
+          <Button variant="outline"> Ver Categorías </Button>
+        </Link>
       </div>
 
       <div class="scale-in stagger-3 flex items-center gap-8 pt-8">

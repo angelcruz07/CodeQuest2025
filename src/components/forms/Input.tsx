@@ -10,6 +10,7 @@ interface Props {
   className?: string;
   inputStyle?: string;
   props?: any;
+  required?: boolean;
 }
 
 export const Input = ({
@@ -21,14 +22,16 @@ export const Input = ({
   error,
   className = "",
   inputStyle = "",
+  required = true,
   ...props
 }: Props) => {
   return (
-    <div className={`mb-2 flex flex-col text-white ${className}`}>
+    <div className={`flex flex-col text-white ${className}`}>
       {label && <span className="mb-3 md:text-xl">{label}</span>}
 
       <input
         type={type}
+        required={required}
         className={`outline-secondary bg-accent border-accet rounded-md border p-2 outline ${inputStyle} ${error ? "border-red-500" : ""}`}
         {...props}
         {...register(name, validation)}

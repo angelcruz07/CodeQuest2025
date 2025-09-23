@@ -7,7 +7,7 @@ export const getCategories = defineAction({
   handler: async () => {
     try {
       const categories = await prisma.category.findMany({
-        orderBy: { name: "asc" }
+        orderBy: { name: "asc" },
       });
       return categories;
     } catch (e) {
@@ -19,3 +19,4 @@ export const getCategories = defineAction({
     }
   },
 });
+

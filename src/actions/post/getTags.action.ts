@@ -9,12 +9,12 @@ export const getTags = defineAction({
       // Obtener todos los tags únicos de los posts
       const posts = await prisma.post.findMany({
         where: { deletedAt: null },
-        select: { tags: true }
+        select: { tags: true },
       });
-      
-      const allTags = posts.flatMap(post => post.tags);
+
+      const allTags = posts.flatMap((post) => post.tags);
       const uniqueTags = [...new Set(allTags)].sort();
-      
+
       return uniqueTags;
     } catch (e) {
       console.error("Error fetching tags:", e);
@@ -25,3 +25,4 @@ export const getTags = defineAction({
     }
   },
 });
+

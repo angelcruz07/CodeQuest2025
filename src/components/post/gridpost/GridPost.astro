@@ -1,16 +1,11 @@
 ---
-import { actions } from "astro:actions";
-
 import PostCard from "../postcard/PostCard.astro";
-import Heading from "@components/heading/Heading.astro";
 import { type Post } from "@interfaces";
 
 const { posts } = Astro.props;
 ---
 
 <section class="mt-10">
-  <Heading component="h2" fontSize="medium">Últimos post</Heading>
-
   <div class="mt-5 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
     {posts?.map((post: Post) => <PostCard post={post} />)}
   </div>

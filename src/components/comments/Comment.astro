@@ -1,26 +1,14 @@
 ---
-import Heading from "../heading/Heading.astro";
 import Text from "../text/Text.astro";
 import Calendar from "@icons/calendar.svg";
+import { Image } from "astro:assets";
+import type { Comment } from "@prisma/client";
 
-import { dateFormat } from "@lib/date-format";
-
-interface Comment {
-  id: string;
-  content: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: Date | null;
-  parentId: string | null;
-  parent: Comment | null;
-  replies: Comment[];
-  postId: string;
-  userId: string;
-  //user: User;
-}
+import type { User } from "@interfaces";
+import { dateFormat } from "@utils/date-format";
 
 interface Props {
-  comment: Comment;
+  comment: Comment & { user: User | null };
 }
 
 const { comment } = Astro.props;
@@ -28,9 +16,21 @@ const { comment } = Astro.props;
 
 <div class="border-accent rounded-md border p-5">
   <div class="flex justify-between">
-    <Heading component="h3" fontSize="small">{comment.author}</Heading>
-    <Text className="flex">
-      <Calendar />
+    <div class="mb-5 flex items-center justify-between gap-x-3">
+      <Image
+        src={comment.user!.image || "/avatars/avatar-default.jpg"}
+        alt={comment.user!.name || "Avatar por defecto"}
+        width={32}
+        height={32}
+        class="h-8 w-8 rounded-full"
+      />
+      <Text fontSize="small" className="font-semibold"
+        >{comment.user!.name}</Text
+      >
+    </div>
+
+    <Text className="flex items-center text-sm">
+      <Calendar class="w-4" />
       {dateFormat(comment.createdAt)}
     </Text>
   </div>
