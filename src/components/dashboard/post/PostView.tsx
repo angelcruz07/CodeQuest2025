@@ -1,3 +1,4 @@
+import type { PostWithRelations } from "@actions/post/getPostsByPage.action";
 import { type Post } from "@interfaces";
 import { dateFormat } from "@utils/date-format";
 import { actions } from "astro:actions";
@@ -9,7 +10,7 @@ interface PropsBadge {
 }
 
 interface Props {
-  post: Post;
+  post: PostWithRelations;
 }
 
 const Badge = ({ children, variant, className }: PropsBadge) => {
