@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { actions } from "astro:actions";
 import type { User } from "@interfaces";
+import { actions } from "astro:actions";
+import { useEffect, useState } from "react";
 
 interface Props {
   postId: string;
@@ -42,10 +42,10 @@ export const PostLikes = ({ postId, user }: Props) => {
   }, [postId]);
 
   return (
-    <div className="mt-10 flex justify-between">
+    <div className="mt-10 flex items-start justify-between">
       <div>
         <span>Likes</span>
-        <div className="mt-3 flex gap-x-2 text-white">
+        <div className="flex gap-x-2 text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -70,7 +70,7 @@ export const PostLikes = ({ postId, user }: Props) => {
       <button
         id="like-button"
         onClick={handleLikeClick}
-        className={`flex cursor-pointer gap-2 rounded-md border p-5 text-white ${
+        className={`hover:bg-secondary flex cursor-pointer gap-2 rounded-md border p-3 text-white ${
           isLiked ? "border-secondary bg-secondary" : "border-secondary"
         }`}
       >
@@ -89,7 +89,7 @@ export const PostLikes = ({ postId, user }: Props) => {
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
         </svg>
-        Me gusta
+        Dar me gusta
       </button>
     </div>
   );

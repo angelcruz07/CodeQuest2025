@@ -18,10 +18,16 @@ export const CommentForm = ({ postId, userId }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<CommentFormProps>();
 
   const onSubmit = async (data: CommentFormProps) => {
+    console.log(userId);
+    if (userId === null) {
+      alert("Necesitas authenticarte para poder comentar");
+      return;
+    }
+
     const formData = new FormData();
 
     formData.append("content", data.content);
@@ -41,7 +47,11 @@ export const CommentForm = ({ postId, userId }: Props) => {
       className="flex justify-between gap-x-5"
     >
       <Input className="w-full" name="content" register={register} />
-      <button type="submit" className="bg-secondary w-20 rounded-md text-white">
+      <button
+        disabled={!isValid}
+        type="submit"
+        className="bg-secondary w-20 rounded-md text-white"
+      >
         Enviar
       </button>
     </form>

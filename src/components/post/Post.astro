@@ -24,7 +24,7 @@ const { post } = Astro.props;
 const { user } = Astro.locals;
 ---
 
-<div class="flex items-center justify-center p-5 md:p-10">
+<div class="flex flex-col items-center justify-center md:p-10">
   <section class="p-5 md:w-4xl">
     <Breadcrumb />
     <Heading component="h1" fontSize="large">
@@ -62,6 +62,7 @@ const { user } = Astro.locals;
     <PostLikes postId={post.id ?? ""} user={user} client:load />
 
     <CommentsView postId={post.id ?? ""} />
-    <PostRecomended postId={post.id ?? ""} />
   </section>
+
+  <PostRecomended postId={post.id ?? ""} />
 </div>
