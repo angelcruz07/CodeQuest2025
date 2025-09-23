@@ -3,21 +3,20 @@ import { z } from "astro:schema";
 import prisma from "@lib/prisma";
 
 export const getCommentsByPostId = defineAction({
-  accept: "form",
   input: z.object({
     postId: z.string(),
   }),
   handler: async ({ postId }) => {
     try {
-      const commentByPostId = await prisma.comment.findUnique({
-        where: { id: postId },
+      const commentByPostId = await prisma.comment.findMany({
+        where: { postId: postId },
         include: {
           user: true,
-          post: true,
           parent: true,
           replies: true,
         },
       });
+
       return commentByPostId;
     } catch (e) {
       throw new ActionError({
@@ -29,4 +28,3 @@ export const getCommentsByPostId = defineAction({
     }
   },
 });
-

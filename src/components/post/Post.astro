@@ -3,6 +3,7 @@ import Heading from "../heading/Heading.astro";
 import Text from "../text/Text.astro";
 import PostContent from "./post-content/PostContent.astro";
 import { PostLikes } from "./post-likes/PostLikes";
+import Breadcrumb from "@components/breadcrumb/Breadcrumb.astro";
 
 import Calendar from "@icons/calendar.svg";
 import User from "@icons/user.svg";
@@ -24,7 +25,8 @@ const { user } = Astro.locals;
 ---
 
 <div class="flex items-center justify-center p-5 md:p-10">
-  <section class="md:w-4xl">
+  <section class="p-5 md:w-4xl">
+    <Breadcrumb />
     <Heading component="h1" fontSize="large">
       {post.title}
     </Heading>
@@ -51,14 +53,15 @@ const { user } = Astro.locals;
     <Image
       width={200}
       height={400}
-      class="mt-10 h-40 w-auto rounded-xl object-cover md:h-96"
+      class="mt-10 h-40 w-full rounded-xl object-cover md:h-96"
       src={post.image}
       alt={post.description}
     />
 
     <PostContent content={post.content} />
     <PostLikes postId={post.id ?? ""} user={user} client:load />
-    <CommentsView postId={post.id} />
-    <PostRecomended postId={post.id} />
+
+    <CommentsView postId={post.id ?? ""} />
+    <PostRecomended postId={post.id ?? ""} />
   </section>
 </div>
