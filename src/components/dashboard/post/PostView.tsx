@@ -1,5 +1,5 @@
 import { type Post } from "@interfaces";
-import { dateFormat } from "@lib/date-format";
+import { dateFormat } from "@utils/date-format";
 import { actions } from "astro:actions";
 
 interface PropsBadge {
@@ -43,10 +43,8 @@ export const PostView = ({ post }: Props) => {
     if (confirmed) {
       try {
         const deletePost = await actions.post.deletePost({ id: postId });
-        // Opcional: Mostrar un mensaje de éxito o redirigir
         if (deletePost) {
           alert("Post eliminado con éxito.");
-          // Por ejemplo, recargar la página para que el post desaparezca
           window.location.reload();
         }
       } catch (error) {
@@ -67,10 +65,7 @@ export const PostView = ({ post }: Props) => {
           {post.image && (
             <div className="flex-shrink-0">
               <img
-                src={
-                  post.image ||
-                  "https://placehold.co/96x96/e2e8f0/1a202c?text=Image"
-                }
+                src={post.image}
                 alt={post.title}
                 className="h-24 w-24 rounded-lg object-cover"
               />
@@ -107,9 +102,9 @@ export const PostView = ({ post }: Props) => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       className="icon icon-tabler icons-tabler-outline icon-tabler-user"
                     >
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />

@@ -1,19 +1,19 @@
-import { useForm, type SubmitHandler } from "react-hook-form";
 import { Input } from "@components/forms/Input";
+import { type Category, type Post } from "@interfaces";
+import MDEditor from "@uiw/react-md-editor";
 import { actions } from "astro:actions";
 import clsx from "clsx";
-import { type Post, type Category } from "@interfaces";
 import { useState } from "react";
-import MDEditor from "@uiw/react-md-editor";
+import { useForm, type SubmitHandler } from "react-hook-form";
 
 interface PostFormData {
-  id?: string;
+  id: string;
   title: string;
   description: string;
   content: string;
-  image: string;
+  image: string | null;
   slug: string;
-  tags?: string[];
+  tags: string[];
   categories: string[];
   userId: string;
 }
@@ -24,8 +24,14 @@ interface Props {
   userId: string;
 }
 
-export default function PostForm({ categories, post, userId }: Props) {
-  const [content, setContent] = useState(post?.content || "");
+export default function PostForm({
+  categories,
+  post: initialPost,
+  userId,
+}: Props) {
+  const [content, setContent] = useState(initialPost?.content || "");
+  const [post, setPost] = useState<Post | null>(initialPost || null);
+  const [image, setImage] = useState<string | null>(initialPost?.image || null);
 
   const {
     register,
@@ -69,25 +75,32 @@ export default function PostForm({ categories, post, userId }: Props) {
     formData.append("title", data.title);
     formData.append("description", data.description);
     formData.append("content", data.content);
-    formData.append("tags", data.tags);
+    formData.append("tags", data.tags.toString());
 
     data.categories.forEach((categoryId) => {
       formData.append("categories", categoryId);
     });
 
-    console.log(formData);
-
     const { error } = await actions.post.createUpdatePost(formData);
 
+    console.log("Form submission error:", error);
     if (!error) {
       alert("Post guardado con éxito!");
       window.location.replace("/dashboard/posts");
     }
   };
 
-  const onClickDelete = async (url: string) => {
-    const { error } = await actions.images.deleteCloudinaryImage({ url });
+  const onClickDelete = async (postId: string) => {
+    const { error } = await actions.post.deletePostImage({ postId });
+
+    if (!error) {
+      alert("Imagen eliminada con éxito!");
+      setImage(null);
+    }
   };
+
+  const isRequired =
+    (!post?.id || post?.slug === "new") && image === null ? true : false;
 
   return (
     <section className="flex flex-col items-center justify-center">
@@ -122,30 +135,31 @@ export default function PostForm({ categories, post, userId }: Props) {
           label="Cargar imagen"
           name="image"
           type="file"
+          required={isRequired}
           register={register}
         />
 
-        {post?.image ? (
+        {image && (
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <div key={post.image}>
+            <div key={post?.image}>
               <img
-                alt={post.title ?? ""}
-                src={post.image}
+                alt={post?.title ?? ""}
+                src={image}
                 width={600}
                 height={300}
                 className="w-full rounded-t-xl shadow-md"
               />
+
               <button
-                onClick={() => onClickDelete(post.image)}
+                onClick={() => post?.id && onClickDelete(post.id)}
                 type="button"
                 className="w-full cursor-pointer rounded-b-xl bg-red-500 text-white"
+                disabled={!post?.id}
               >
                 Eliminar
               </button>
             </div>
           </div>
-        ) : (
-          <p>No hay imagen disponible</p>
         )}
 
         <div className="flex flex-col">
@@ -156,7 +170,7 @@ export default function PostForm({ categories, post, userId }: Props) {
                 key={category.id}
                 onClick={() => onCategoryChange(category)}
                 className={clsx(
-                  "mr-2 cursor-pointer rounded-md border p-2 text-center transition-all",
+                  "cursor-pointer rounded-md border p-2 text-center transition-all",
                   {
                     "bg-secondary text-white": getValues("categories").includes(
                       category.id,
@@ -171,8 +185,12 @@ export default function PostForm({ categories, post, userId }: Props) {
         </div>
 
         <button
-          className="bg-secondary cursor-pointer rounded-md p-5"
           type="submit"
+          disabled={!isValid}
+          className={clsx("bg-secondary cursor-pointer rounded-md p-5", {
+            "bg-secondary": isValid,
+            "bg-gray-500": !isValid,
+          })}
         >
           Guardar
         </button>

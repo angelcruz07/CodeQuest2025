@@ -12,7 +12,7 @@ import { type Post } from "@interfaces";
 import CommentsView from "@components/comments/CommentsView.astro";
 import { Image } from "astro:assets";
 
-import { dateFormat } from "@lib/date-format";
+import { dateFormat } from "@utils/date-format";
 
 interface Props {
   post: Post;
@@ -52,7 +52,7 @@ const { post } = Astro.props;
     <Image
       width={200}
       height={400}
-      class="mt-10 h-40 w-auto w-full rounded-xl object-cover md:h-96"
+      class="mt-10 h-40 w-auto rounded-xl object-cover md:h-96"
       src={post.image}
       alt={post.description}
     />

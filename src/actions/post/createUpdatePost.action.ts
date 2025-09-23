@@ -1,7 +1,7 @@
+import prisma from "@lib/prisma";
+import { ImageUpload } from "@utils/image-upload";
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import prisma from "@lib/prisma";
-import { uploadImages } from "@lib/cloudinary/uploadImage";
 
 export const createUpdatePost = defineAction({
   accept: "form",
@@ -10,24 +10,23 @@ export const createUpdatePost = defineAction({
     title: z.string().min(3).max(50),
     description: z.string().min(3).max(255),
     content: z.string().min(10),
-    image: z.instanceof(File).optional(),
+    image: z.any().optional(),
     tags: z.string().min(3).max(200),
-    slug: z.string().min(5).max(30).optional(),
+    slug: z.string().min(5).optional(),
     categories: z.array(z.string().min(3)).or(z.string().min(3)),
-    userId: z.string().min(1),
   }),
-  handler: async ({
-    id,
-    title,
-    description,
-    content,
-    image,
-    tags,
-    slug,
-    categories,
-    userId,
-  }) => {
-    const DEFAULT_IMAGE_URL = "/images/code.png";
+  handler: async (
+    { id, title, description, content, image, tags, slug, categories },
+    { locals },
+  ) => {
+    const user = locals.user;
+
+    if (!user) {
+      throw new ActionError({
+        code: "UNAUTHORIZED",
+        message: "You must be logged in to create or update a post",
+      });
+    }
 
     try {
       const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase());
@@ -46,26 +45,21 @@ export const createUpdatePost = defineAction({
       });
 
       if (existingCategories.length !== categoriesArray.length) {
+        console.error("One or more categories do not exist");
         throw new ActionError({
           code: "BAD_REQUEST",
           message: "One or more categories do not exist in the database",
         });
       }
 
-      let imageUrl = DEFAULT_IMAGE_URL;
-
+      let updaloadedUrl: string | null = null;
       if (image && image.size > 0) {
         try {
-          const uploadedUrl = await uploadImages(image);
-          console.log(uploadImages);
-          imageUrl =
-            uploadedUrl.find((url) => url !== null) || DEFAULT_IMAGE_URL;
+          updaloadedUrl = await ImageUpload.upload(image);
         } catch (uploadError) {
           console.error("Error uploading image:", uploadError);
         }
       }
-
-      console.log(imageUrl);
 
       if (id) {
         const updatedPost = await prisma.post.update({
@@ -74,15 +68,16 @@ export const createUpdatePost = defineAction({
             title,
             description,
             content,
-            image: imageUrl,
+            image: updaloadedUrl,
             tags: { set: tagsArray },
             slug,
-            userId,
+            userId: user.id,
             categories: {
               set: categoriesArray.map((categoryId) => ({ id: categoryId })),
             },
           },
         });
+
         return updatedPost;
       } else {
         const newPost = await prisma.post.create({
@@ -90,10 +85,10 @@ export const createUpdatePost = defineAction({
             title,
             description,
             content,
-            image: imageUrl,
+            image: updaloadedUrl,
             tags: { set: tagsArray },
             slug: slug || slugifiedTitle,
-            userId,
+            userId: user.id,
             categories: {
               connect: categoriesArray.map((categoryId) => ({
                 id: categoryId,
@@ -102,7 +97,6 @@ export const createUpdatePost = defineAction({
           },
         });
 
-        console.log(newPost);
         return newPost;
       }
     } catch (e) {
