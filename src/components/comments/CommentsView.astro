@@ -10,7 +10,8 @@ interface Props {
 }
 
 const { postId } = Astro.props;
-const userId = Astro.locals.user?.id;
+
+const userId = Astro.locals.user?.id ?? null;
 
 const { data } = await Astro.callAction(actions.comment.getCommentsByPostId, {
   postId: postId,
