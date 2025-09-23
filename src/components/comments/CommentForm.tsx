@@ -29,13 +29,13 @@ export const CommentForm = ({ postId, userId }: Props) => {
 
     console.log("Data del comentario: ", formData);
 
-    const newComment = await actions.comment.createUpdatePost(formData);
+    const newComment = await actions.comment.createUpdateComment(formData);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} class="flex gap-x-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex gap-x-5">
       <Input name="content" register={register} />
-      <button type="submit" class="bg-secondary w-full rounded-md">
+      <button type="submit" className="bg-secondary w-full rounded-md">
         Enviar
       </button>
     </form>
