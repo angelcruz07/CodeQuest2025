@@ -57,7 +57,7 @@ const { post } = Astro.props;
             class="mb-3 flex flex-wrap gap-1.5 sm:mb-4 sm:gap-2"
             aria-label="Etiquetas del artículo"
           >
-            {post.tags.slice(0, 3).map((tag) => (
+            {post.tags.slice(0, 2).map((tag) => (
               <span
                 class="inline-flex items-center rounded-full bg-purple-500/20 px-2 py-1 text-xs font-medium text-purple-300 ring-1 ring-purple-400/30 transition-colors duration-200 hover:bg-purple-500/30 focus:ring-2 focus:ring-purple-400 focus:outline-none sm:px-3"
                 tabindex="-1"
@@ -81,18 +81,18 @@ const { post } = Astro.props;
         </span>
       </h3>
       <!-- Descripción -->
-      <p
-        class="mt-2 line-clamp-2 text-sm leading-relaxed text-gray-300 sm:mt-3 sm:line-clamp-3"
-        id={`post-description-${post.slug}`}
+      <Text
+        className="mt-2 mb-2 line-clamp-2 text-sm leading-relaxed text-gray-300 sm:mt-3 sm:line-clamp-3"
       >
         {post.description}
-      </p>
+      </Text>
+
       <!-- Footer con metadata mejorada -->
       <div
         class="absolute right-4 bottom-4 left-4 sm:right-5 sm:bottom-5 sm:left-5 lg:right-6 lg:bottom-6 lg:left-6"
       >
         <div
-          class="flex flex-col gap-3 border-t border-purple-400/20 pt-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:pt-4"
+          class="mt-2 flex flex-col gap-3 border-t border-purple-400/20 pt-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:pt-4"
           id={`post-meta-${post.slug}`}
           aria-label="Información del autor y fecha de publicación"
         >
