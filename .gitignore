@@ -26,4 +26,3 @@ pnpm-debug.log*
 
 /src/generated/prisma
 
-prisma/migrations/
