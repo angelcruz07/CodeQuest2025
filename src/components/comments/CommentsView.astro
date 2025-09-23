@@ -1,5 +1,6 @@
 ---
 import Heading from "../heading/Heading.astro";
+import Text from "../text/Text.astro";
 import Comment from "./Comment.astro";
 import { CommentForm } from "./CommentForm";
 import { actions } from "astro:actions";
@@ -9,41 +10,13 @@ interface Props {
 }
 
 const { postId } = Astro.props;
+const userId = Astro.locals.user?.id;
 
 const { data } = await Astro.callAction(actions.comment.getCommentsByPostId, {
   postId: postId,
 });
 
-console.log(data);
-
-const comments = [
-  {
-    id: 1,
-    author: "Ana G.",
-    content: "¡Excelente artículo! Me sirvió mucho para mi proyecto.",
-    createdAt: "2025-09-20 02:42:34.017",
-  },
-  {
-    id: 2,
-    author: "Pedro L.",
-    content:
-      "Muy bien explicado, pero me gustaría ver un ejemplo más complejo.",
-    createdAt: "2025-09-20 02:42:34.017",
-  },
-  {
-    id: 3,
-    author: "María P.",
-    content: "Tengo una duda con el segundo paso, ¿podrían aclararlo?",
-    createdAt: "2025-09-20 02:42:34.017",
-  },
-  {
-    id: 4,
-    author: "Carlos R.",
-    content: "¡Gracias por compartir!",
-    createdAt: "2025-09-20 02:42:34.017",
-  },
-];
-
+const comments = data ?? [];
 const totalComments = comments.length;
 ---
 
@@ -56,12 +29,13 @@ const totalComments = comments.length;
     <div class="">
       {
         comments.length === 0 ? (
-          <p class="content-sm mt-5">
+          <Text className="content-sm mt-5">
             No hay comentarios aún. Sé el primero en comentar.
-          </p>
+          </Text>
         ) : (
           <div class="mt-5 space-y-5">
             {comments.map((comment) => (
+              // @ts-ignore
               <Comment comment={comment} />
             ))}
           </div>
@@ -74,6 +48,7 @@ const totalComments = comments.length;
     <Heading component="h3" fontSize="medium" className="mb-3">
       Dejar un comentario
     </Heading>
-    <CommentForm load:client />
+
+    <CommentForm postId={postId} userId={userId} client:load />
   </div>
 </section>

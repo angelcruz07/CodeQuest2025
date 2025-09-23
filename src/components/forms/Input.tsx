@@ -26,7 +26,7 @@ export const Input = ({
   ...props
 }: Props) => {
   return (
-    <div className={`mb-2 flex flex-col text-white ${className}`}>
+    <div className={`flex flex-col text-white ${className}`}>
       {label && <span className="mb-3 md:text-xl">{label}</span>}
 
       <input

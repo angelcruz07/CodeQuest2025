@@ -8,7 +8,8 @@ const { activeSection = "dashboard" } = Astro.props;
 const { user } = Astro.locals;
 
 const sidebarItems = [
-  { id: "posts", label: "Posts", icon: PostIcon, path: "/dashboard/post/" },
+  { id: "posts", label: "Posts", icon: PostIcon, path: "/dashboard/posts/" },
+  { id: "home", label: "Inicio", icon: PostIcon, path: "/" },
 ];
 ---
 
@@ -41,9 +42,9 @@ const sidebarItems = [
           const isActive = activeSection === item.id;
           return (
             <li>
-              <Link
+              <a
                 href={item.path}
-                className={`flex h-12 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-all duration-200 ${
+                class={`flex h-12 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-all duration-200 ${
                   isActive
                     ? "bg-[var(--color-accent)] text-[var(--color-neutral)]"
                     : "text-[color-mix(in_srgb,var(--color-neutral)_80%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-accent)_70%,transparent)] hover:text-[var(--color-neutral)]"
@@ -53,7 +54,7 @@ const sidebarItems = [
               >
                 <Icon class="h-5 w-5" />
                 <span class="font-sans">{item.label}</span>
-              </Link>
+              </a>
             </li>
           );
         })
@@ -99,19 +100,6 @@ const sidebarItems = [
 
 <script>
   import { signOut } from "@lib/auth/auth-client";
-
-  // Navegación de secciones
-  document.querySelectorAll("a[data-section]").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const section = link.getAttribute("data-section");
-      if (section) {
-        window.dispatchEvent(
-          new CustomEvent("sidebar-section-change", { detail: { section } }),
-        );
-      }
-    });
-  });
 
   // Logout
   const btnLogout = document.getElementById("btn-logout");

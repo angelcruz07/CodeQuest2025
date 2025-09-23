@@ -97,6 +97,7 @@ export default function PostForm({
       alert("Imagen eliminada con éxito!");
       setImage(null);
     }
+    console.log("Delete image error:", error);
   };
 
   const isRequired =

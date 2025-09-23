@@ -6,7 +6,7 @@ export const createUpdateComment = defineAction({
   accept: "form",
   input: z.object({
     id: z.string().optional(),
-    content: z.array(z.string()).min(3).max(255),
+    content: z.string().min(3).max(255),
     postId: z.string(),
     userId: z.string(),
     parentId: z.string().min(3).max(255).optional(),
@@ -18,7 +18,7 @@ export const createUpdateComment = defineAction({
         const updatedComment = await prisma.comment.update({
           where: { id: id },
           data: {
-            content: content.join(" "),
+            content: content,
             post: { connect: { id: postId } },
             user: { connect: { id: userId } },
             parent: parentId ? { connect: { id: parentId } } : undefined,
@@ -27,11 +27,13 @@ export const createUpdateComment = defineAction({
               : undefined,
           },
         });
+
         return updatedComment;
       }
+
       const newPost = await prisma.comment.create({
         data: {
-          content: content.join(" "),
+          content: content,
           post: { connect: { id: postId } },
           user: { connect: { id: userId } },
           parent: parentId ? { connect: { id: parentId } } : undefined,
@@ -40,6 +42,7 @@ export const createUpdateComment = defineAction({
             : undefined,
         },
       });
+
       return newPost;
     } catch (e) {
       if (id) {
@@ -60,4 +63,3 @@ export const createUpdateComment = defineAction({
     }
   },
 });
-
